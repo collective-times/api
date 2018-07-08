@@ -52,6 +52,13 @@ class Crawl extends Command
 
             foreach ($items as $item) {
                 $entity = $crawl->getEntity($item);
+
+                // 記事URLが登録済みの場合はスキップする
+                $article = Article::where('article_url', $entity->getArticleUrl())->first();
+                if ($article) {
+                    continue;
+                }
+
                 Article::create([
                     'title' => $entity->getTitle(),
                     'description' => $entity->getDescription(),
