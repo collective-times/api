@@ -5,6 +5,7 @@ namespace App\Console\Commands;
 use Carbon\Carbon;
 use Illuminate\Console\Command;
 use App\DataAccess\Eloquent\Article;
+use App\Crawl\RSS2;
 
 class Crawl extends Command
 {
@@ -44,16 +45,16 @@ class Crawl extends Command
 
         foreach ($siteUrls as $url) {
             $response = $client->request('GET', $url);
-            $rss = simplexml_load_string($response->getBody()->getContents());
-            $nameSpaces = $rss->getNamespaces(true);
-            foreach ($rss->item as $item) {
-                $nameSpacedItem = $item->children($nameSpaces['dc']);
-                $date = new Carbon($nameSpacedItem->date);
+            $crawl = new RSS2();
+            $items = $crawl->parse($response->getBody()->getContents());
+
+            foreach ($items as $item) {
+                $entity = $crawl->getEntity($item);
                 Article::create([
-                    'title' => $item->title,
-                    'description' => $item->description,
-                    'publish_date' => $date->toDateTimeString(),
-                    'article_url' => $item->link,
+                    'title' => $entity->getTitle(),
+                    'description' => $entity->getDescription(),
+                    'publish_date' => $entity->getPublishDate(),
+                    'article_url' => $entity->getArticleUrl(),
                     'source_url' => 'http://b.hatena.ne.jp/hotentry/it',
                 ]);
             }
