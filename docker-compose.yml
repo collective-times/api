@@ -18,6 +18,8 @@ services:
       - database
   database:
     image: mysql:5.7
+    volumes:
+      - ./docker/database/my.cnf:/etc/mysql/conf.d/my.cnf:ro
     environment:
       TZ: Asia/Tokyo
       MYSQL_DATABASE: collective_times_development
