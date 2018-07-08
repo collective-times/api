@@ -2,10 +2,8 @@
 
 namespace App\Console\Commands;
 
-use Carbon\Carbon;
 use Illuminate\Console\Command;
 use App\DataAccess\Eloquent\Article;
-use App\Crawl\RSS2;
 
 class Crawl extends Command
 {
@@ -40,12 +38,12 @@ class Crawl extends Command
      */
     public function handle()
     {
-        $siteUrls  = config('crawl_sites.rss');
+        $sites = config('crawl_sites');
         $client = new \GuzzleHttp\Client();
 
-        foreach ($siteUrls as $url) {
-            $response = $client->request('GET', $url);
-            $crawl = new RSS2();
+        foreach ($sites as $site) {
+            $response = $client->request('GET', $site['crawl_url']);
+            $crawl = new $site['class']();
             $items = $crawl->parse($response->getBody()->getContents());
 
             foreach ($items as $item) {
@@ -55,7 +53,7 @@ class Crawl extends Command
                     'description' => $entity->getDescription(),
                     'publish_date' => $entity->getPublishDate(),
                     'article_url' => $entity->getArticleUrl(),
-                    'source_url' => 'http://b.hatena.ne.jp/hotentry/it',
+                    'source_url' => $site['source_url'],
                 ]);
             }
         }
