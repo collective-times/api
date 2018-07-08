@@ -29,4 +29,31 @@ class ArticleTest extends TestCase
             ]
         ]]);
     }
+
+    public function textIndex_WillResponse10Items_WhenPage1()
+    {
+        factory(Article::class, 15)->create();
+
+        $response = $this->getJson('/v1/articles?page=1');
+        $response->assertStatus(200);
+        $response->assertJsonCount(10, 'articles');
+    }
+
+    public function textIndex_WillResponse5Items_WhenPage2()
+    {
+        factory(Article::class, 15)->create();
+
+        $response = $this->getJson('/v1/articles?page=2');
+        $response->assertStatus(200);
+        $response->assertJsonCount(5, 'articles');
+    }
+
+    public function textIndex_WillResponseZeroItems_WhenPage3()
+    {
+        factory(Article::class, 15)->create();
+
+        $response = $this->getJson('/v1/articles?page=2');
+        $response->assertStatus(200);
+        $response->assertJsonCount(5, 'articles');
+    }
 }
