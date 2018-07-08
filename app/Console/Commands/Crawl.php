@@ -2,7 +2,9 @@
 
 namespace App\Console\Commands;
 
+use Carbon\Carbon;
 use Illuminate\Console\Command;
+use App\DataAccess\Eloquent\Article;
 
 class Crawl extends Command
 {
@@ -11,14 +13,14 @@ class Crawl extends Command
      *
      * @var string
      */
-    protected $signature = 'command:name';
+    protected $signature = 'crawl:run';
 
     /**
      * The console command description.
      *
      * @var string
      */
-    protected $description = 'Command description';
+    protected $description = 'Run crawling';
 
     /**
      * Create a new command instance.
@@ -37,6 +39,24 @@ class Crawl extends Command
      */
     public function handle()
     {
-        //
+        $siteUrls  = config('crawl_sites.rss');
+        $client = new \GuzzleHttp\Client();
+
+        foreach ($siteUrls as $url) {
+            $response = $client->request('GET', $url);
+            $rss = simplexml_load_string($response->getBody()->getContents());
+            $nameSpaces = $rss->getNamespaces(true);
+            foreach ($rss->item as $item) {
+                $nameSpacedItem = $item->children($nameSpaces['dc']);
+                $date = new Carbon($nameSpacedItem->date);
+                Article::create([
+                    'title' => $item->title,
+                    'description' => $item->description,
+                    'publish_date' => $date->toDateTimeString(),
+                    'article_url' => $item->link,
+                    'source_url' => 'http://b.hatena.ne.jp/hotentry/it',
+                ]);
+            }
+        }
     }
 }
