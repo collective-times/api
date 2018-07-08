@@ -18,10 +18,10 @@ $factory->define(Article::class, function (Faker $faker) {
     return [
         'title' => $faker->text(30),
         'description' => $faker->text(100),
-        'date' => $faker->dateTime(),
-        'articleUrl' => $faker->url,
-        'sourceUrl' => $faker->url,
-        'imageUrl' => $faker->imageUrl(),
-        'faviconUrl' => $faker->imageUrl(),
+        'publish_date' => $faker->dateTime(),
+        'article_url' => $faker->url,
+        'source_url' => $faker->url,
+        'image_url' => $faker->imageUrl(),
+        'favicon_url' => $faker->imageUrl(),
     ];
 });
