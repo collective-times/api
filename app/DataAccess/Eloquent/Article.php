@@ -13,6 +13,6 @@ class Article extends Model
         'article_url',
         'source_url',
         'image_url',
-        'faviron_url',
+        'favicon_url',
     ];
 }
