@@ -59,12 +59,15 @@ class Crawl extends Command
                     continue;
                 }
 
+                $entity->getImageUrl();
                 Article::create([
                     'title' => $entity->getTitle(),
                     'description' => $entity->getDescription(),
                     'publish_date' => $entity->getPublishDate(),
                     'article_url' => $entity->getArticleUrl(),
                     'source_url' => $site['source_url'],
+                    'image_url' => $entity->getImageUrl(),
+                    'favicon_url' => $entity->getFaviconUrl(),
                 ]);
             }
         }

@@ -9,4 +9,6 @@ interface EntityInterface
     public function getDescription();
     public function getPublishDate();
     public function getArticleUrl();
+    public function getImageUrl();
+    public function getFaviconUrl();
 }
