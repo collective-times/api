@@ -1,8 +1,8 @@
 <?php
 
-namespace App\Crawl;
+namespace App\ContentsParser;
 
-use App\Crawl\RSS2\Entity;
+use App\ContentsParser\RSS2\Entity;
 
 class RSS2
 {

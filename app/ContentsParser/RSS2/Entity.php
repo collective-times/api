@@ -1,8 +1,8 @@
 <?php
 
-namespace App\Crawl\RSS2;
+namespace App\ContentsParser\RSS2;
 
-use App\Crawl\EntityInterface;
+use App\ContentsParser\EntityInterface;
 use Carbon\Carbon;
 
 class Entity implements EntityInterface

@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Crawl;
+namespace App\ContentsParser;
 
 
 interface EntityInterface
