@@ -21,7 +21,7 @@ class ArticleController extends Controller
                 'articleUrl' => $article->article_url,
                 'sourceUrl' => $article->source_url,
                 'imageUrl' => $article->image_url,
-                'faviconUrl' => $article->faviron_url,
+                'faviconUrl' => $article->favicon_url,
             ];
         })]);
     }
