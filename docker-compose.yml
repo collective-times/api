@@ -1,0 +1,27 @@
+version: '3'
+services:
+  web:
+    image: nginx:alpine
+    ports:
+      - "80:80"
+    volumes:
+      - ./docker/nginx/default.conf:/etc/nginx/conf.d/default.conf:ro
+    environment:
+      TZ: Asia/Tokyo
+    depends_on:
+      - api
+  api:
+    build: ./docker/api
+    volumes:
+      - .:/var/www/collective-times/api
+    depends_on:
+      - database
+  database:
+    image: mysql:5.7
+    environment:
+      TZ: Asia/Tokyo
+      MYSQL_DATABASE: collective_times_development
+      MYSQL_USER: collective_times
+      MYSQL_PASSWORD: collective_times_development
+      MYSQL_ALLOW_EMPTY_PASSWORD: 'yes'
+
