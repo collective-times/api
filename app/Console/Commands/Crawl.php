@@ -42,6 +42,10 @@ class Crawl extends Command
         $client = new \GuzzleHttp\Client();
 
         foreach ($sites as $site) {
+            if (!$site['enabled']) {
+                continue;
+            }
+
             $response = $client->request('GET', $site['crawl_url']);
             $crawl = new $site['class']();
             $items = $crawl->parse($response->getBody()->getContents());
