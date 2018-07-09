@@ -39,7 +39,7 @@ class Crawl extends Command
     public function handle()
     {
         $sites = config('crawl_sites');
-        $client = new \GuzzleHttp\Client();
+        $client = new \GuzzleHttp\Client(['headers' => ['User-Agent' => 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_12_6) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/67.0.3396.99 Safari/537.36']]);
 
         foreach ($sites as $site) {
             if (!$site['enabled']) {
