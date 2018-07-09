@@ -10,6 +10,7 @@ class Entity implements EntityInterface
 {
     private $item;
     private $nameSpace;
+    private $crawler;
 
     public function __construct($item, $nameSpace)
     {
@@ -41,19 +42,24 @@ class Entity implements EntityInterface
 
     public function getImageUrl()
     {
-        $nameSpacedItem = $this->item->children($this->nameSpace['content']);
-        $crawler = new Crawler(null);
-        $crawler->addHtmlContent((string) $nameSpacedItem->encoded);
-
-        return $crawler->filter('body img')->eq(1)->attr('src');
+        return $this->createCrawlerObject()->filter('body img')->eq(1)->attr('src');
     }
 
     public function getFaviconUrl()
     {
-        $nameSpacedItem = $this->item->children($this->nameSpace['content']);
-        $crawler = new Crawler(null);
-        $crawler->addHtmlContent((string) $nameSpacedItem->encoded);
+        return $this->createCrawlerObject()->filter('body img')->eq(0)->attr('src');
+    }
 
-        return $crawler->filter('body img')->eq(0)->attr('src');
+    private function createCrawlerObject()
+    {
+        if (!is_null($this->crawler)) {
+            return $this->crawler;
+        }
+
+        $nameSpacedItem = $this->item->children($this->nameSpace['content']);
+        $this->crawler = new Crawler(null);
+        $this->crawler->addHtmlContent((string) $nameSpacedItem->encoded);
+
+        return $this->crawler;
     }
 }
