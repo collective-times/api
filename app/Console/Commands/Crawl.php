@@ -39,16 +39,14 @@ class Crawl extends Command
     public function handle()
     {
         $sites = config('crawl_sites');
-        $client = new \GuzzleHttp\Client(['headers' => ['User-Agent' => 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_12_6) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/67.0.3396.99 Safari/537.36']]);
 
         foreach ($sites as $site) {
             if (!$site['enabled']) {
                 continue;
             }
 
-            $response = $client->request('GET', $site['crawl_url']);
             $crawl = new $site['class']();
-            $items = $crawl->parse($response->getBody()->getContents());
+            $items = $crawl->parse($this->request('guzzle', $site['crawl_url']));
 
             foreach ($items as $item) {
                 $entity = $crawl->getEntity($item);
@@ -69,6 +67,21 @@ class Crawl extends Command
                     'favicon_url' => $entity->getFaviconUrl(),
                 ]);
             }
+        }
+    }
+
+    private function request($mode, $url)
+    {
+        switch($mode) {
+            // User-Agentが無いとGET出来ないサーバー用
+            case 'guzzle':
+                $client = new \GuzzleHttp\Client(['headers' => ['User-Agent' => 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_12_6) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/67.0.3396.99 Safari/537.36']]);
+                $response = $client->request('GET', $url);
+                return $response->getBody()->getContents();
+                break;
+            case 'file_get_contents':
+                return file_get_contents($url);
+                break;
         }
     }
 }
