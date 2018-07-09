@@ -52,12 +52,12 @@ class EntityTest extends TestCase
         $this->assertEquals('http://example.blog.jp/2018/07/09/', $this->entity->getArticleUrl());
     }
 
-    public function testGetImageUrl()
+    public function testGetImageUrl_ReturnUrl()
     {
         $this->assertEquals('http://example.image.jp/image.jpg', $this->entity->getImageUrl());
     }
 
-    public function testGetFaviconUrl()
+    public function testGetFaviconUrl_ReturnUrl()
     {
         $this->assertEquals('http://example.image.jp/favicon.jpg', $this->entity->getFaviconUrl());
     }
