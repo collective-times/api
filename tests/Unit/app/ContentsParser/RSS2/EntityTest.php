@@ -3,7 +3,6 @@
 namespace Tests\Unit\App\ContentsParser\RSS2;
 
 use App\ContentsParser\RSS2;
-use App\ContentsParser\RSS2\Entity;
 use PHPUnit\Framework\TestCase;
 
 class EntityTest extends TestCase
