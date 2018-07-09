@@ -15,9 +15,9 @@ class EntityTest extends TestCase
         <link>http://example.blog.jp/2018/07/09/</link>
         <description>あいうえおかきくけこ</description>
         <dc:date>2018-07-08T11:29:46Z</dc:date>
-        <content:encoded>
-            <blockquote cite="http://example.blog.jp/2018/07/09/" title="Example Blog Title"><cite><img src="http://example.image.jp/hoge.jpg" alt="" /> <a href="http://example.blog.jp/2018/07/09/">Example Blog Title</a></cite><p><a href="http://example.blog.jp/2018/07/09/"><img src="http://example.image.jp/hoge.jpg" alt="Example Blog Title" title="Example Blog Title" class="entry-image" /></a></p></blockquote>
-        </content:encoded>
+        <content:encoded><![CDATA[
+            <blockquote cite="http://example.blog.jp/2018/07/09/" title="Example Blog Title"><cite><img src="http://example.image.jp/favicon.jpg" alt="" /> <a href="http://example.blog.jp/2018/07/09/">Example Blog Title</a></cite><p><a href="http://example.blog.jp/2018/07/09/"><img src="http://example.image.jp/image.jpg" alt="Example Blog Title" title="Example Blog Title" class="entry-image" /></a></p></blockquote>
+          ]]></content:encoded>
     </item>>
 </rdf:RDF>
 ';
@@ -40,5 +40,25 @@ class EntityTest extends TestCase
     public function testGetDescription_ReturnDescription()
     {
         $this->assertEquals('あいうえおかきくけこ', $this->entity->getDescription());
+    }
+
+    public function testGetPublishDate()
+    {
+        $this->assertEquals('2018-07-08 11:29:46', $this->entity->getPublishDate());
+    }
+
+    public function testGetArticleUrl_ReturnUrl()
+    {
+        $this->assertEquals('http://example.blog.jp/2018/07/09/', $this->entity->getArticleUrl());
+    }
+
+    public function testGetImageUrl()
+    {
+        $this->assertEquals('http://example.image.jp/image.jpg', $this->entity->getImageUrl());
+    }
+
+    public function testGetFaviconUrl()
+    {
+        $this->assertEquals('http://example.image.jp/favicon.jpg', $this->entity->getFaviconUrl());
     }
 }
