@@ -59,7 +59,6 @@ class Crawl extends Command
                     continue;
                 }
 
-                $entity->getImageUrl();
                 Article::create([
                     'title' => $entity->getTitle(),
                     'description' => $entity->getDescription(),
