@@ -2,6 +2,7 @@
 
 namespace App\Console\Commands;
 
+use App\ContentsParser\RSS2;
 use Illuminate\Console\Command;
 use App\DataAccess\Eloquent\Article;
 
@@ -39,19 +40,17 @@ class Crawl extends Command
     public function handle()
     {
         $sites = config('crawl_sites');
-        $client = new \GuzzleHttp\Client(['headers' => ['User-Agent' => 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_12_6) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/67.0.3396.99 Safari/537.36']]);
 
         foreach ($sites as $site) {
             if (!$site['enabled']) {
                 continue;
             }
 
-            $response = $client->request('GET', $site['crawl_url']);
-            $crawl = new $site['class']();
-            $items = $crawl->parse($response->getBody()->getContents());
+            $content = new $site['class']();
+            $items = $content->request($site['crawl_url']);
 
             foreach ($items as $item) {
-                $entity = $crawl->getEntity($item);
+                $entity = $content->getEntity($item);
 
                 // 記事URLが登録済みの場合はスキップする
                 $article = Article::where('article_url', $entity->getArticleUrl())->first();
