@@ -46,8 +46,8 @@ class Crawl extends Command
                 continue;
             }
 
-            $crawl = new $site['class']();
-            $items = $crawl->request($site['crawl_url']);
+            $contents = new $site['class']();
+            $items = $contents->request($site['crawl_url']);
 
             foreach ($items as $item) {
                 $entity = RSS2::getEntity($item);
