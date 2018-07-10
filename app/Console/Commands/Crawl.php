@@ -46,11 +46,11 @@ class Crawl extends Command
                 continue;
             }
 
-            $contents = new $site['class']();
-            $items = $contents->request($site['crawl_url']);
+            $content = new $site['class']();
+            $items = $content->request($site['crawl_url']);
 
             foreach ($items as $item) {
-                $entity = RSS2::getEntity($item);
+                $entity = $content->getEntity($item);
 
                 // 記事URLが登録済みの場合はスキップする
                 $article = Article::where('article_url', $entity->getArticleUrl())->first();

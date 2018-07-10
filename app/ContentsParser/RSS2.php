@@ -24,7 +24,7 @@ class RSS2
         return $this->feed->get_items();
     }
 
-    public static function getEntity($item)
+    public function getEntity($item)
     {
         return new Entity($item);
     }
