@@ -3,20 +3,29 @@
 namespace App\ContentsParser;
 
 use App\ContentsParser\RSS2\Entity;
+use SimplePie;
 
 class RSS2
 {
-    private $rss;
+    private $feed;
 
-    public function parse($contents)
+    public function __construct()
     {
-        $this->rss = simplexml_load_string($contents);
-        return $this->rss->item;
+        $this->feed = new SimplePie();
     }
 
-    public function getEntity($item)
+    public function request($url)
     {
-        $nameSpaces = $this->rss->getNamespaces(true);
-        return new Entity($item, $nameSpaces);
+        $this->feed->set_feed_url($url);
+        $this->feed->handle_content_type();
+        $this->feed->enable_cache(false);
+        $this->feed->init();
+
+        return $this->feed->get_items();
+    }
+
+    public static function getEntity($item)
+    {
+        return new Entity($item);
     }
 }

@@ -3,63 +3,52 @@
 namespace App\ContentsParser\RSS2;
 
 use App\ContentsParser\EntityInterface;
-use Carbon\Carbon;
 use Symfony\Component\DomCrawler\Crawler;
 
 class Entity implements EntityInterface
 {
     private $item;
-    private $nameSpace;
-    private $crawler;
 
-    public function __construct($item, $nameSpace)
+    public function __construct($item)
     {
         $this->item = $item;
-        $this->nameSpace = $nameSpace;
     }
 
     public function getTitle()
     {
-        return $this->item->title;
+        return $this->item->get_title();
     }
 
     public function getDescription()
     {
-        return $this->item->description;
+        return $this->item->get_description();
     }
 
     public function getPublishDate()
     {
-        $nameSpacedItem = $this->item->children($this->nameSpace['dc']);
-        $date = new Carbon($nameSpacedItem->date);
-        return $date->toDateTimeString();
+        return $this->item->get_date('Y-m-d H:i:s');
     }
 
     public function getArticleUrl()
     {
-        return $this->item->link;
+        return $this->item->get_link();
     }
 
     public function getImageUrl()
     {
-        return $this->createCrawlerObject()->filter('body img')->eq(1)->attr('src');
+        return $this->createCrawler($this->item->get_content())->filter('body img')->eq(1)->attr('src');
     }
 
     public function getFaviconUrl()
     {
-        return $this->createCrawlerObject()->filter('body img')->eq(0)->attr('src');
+        return $this->createCrawler($this->item->get_content())->filter('body img')->eq(0)->attr('src');
     }
 
-    private function createCrawlerObject()
+    private function createCrawler($content)
     {
-        if (!is_null($this->crawler)) {
-            return $this->crawler;
-        }
+        $crawler = new Crawler(null);
+        $crawler->addHtmlContent($content);
 
-        $nameSpacedItem = $this->item->children($this->nameSpace['content']);
-        $this->crawler = new Crawler(null);
-        $this->crawler->addHtmlContent((string) $nameSpacedItem->encoded);
-
-        return $this->crawler;
+        return $crawler;
     }
 }
