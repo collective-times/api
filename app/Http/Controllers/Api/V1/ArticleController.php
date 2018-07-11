@@ -15,6 +15,7 @@ class ArticleController extends Controller
 
         return response()->json(['articles' => $articles->map(function($article) {
             return [
+                'key' => $article->id,
                 'title' => $article->title,
                 'description' => $article->description,
                 'date' => $article->publish_date,
