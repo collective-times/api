@@ -2,10 +2,9 @@
 
 namespace App\ContentsParser;
 
-use App\ContentsParser\RSS2\Entity;
 use SimplePie;
 
-class RSS2
+class Request
 {
     private $feed;
 
@@ -22,10 +21,5 @@ class RSS2
         $this->feed->init();
 
         return $this->feed->get_items();
-    }
-
-    public function getEntity($item)
-    {
-        return new Entity($item);
     }
 }

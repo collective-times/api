@@ -1,11 +1,11 @@
 <?php
 
-namespace App\ContentsParser\RSS2;
+namespace App\ContentsParser\Entity;
 
 use App\ContentsParser\EntityInterface;
 use Symfony\Component\DomCrawler\Crawler;
 
-class Entity implements EntityInterface
+class RSS2 implements EntityInterface
 {
     private $item;
 

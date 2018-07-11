@@ -2,7 +2,7 @@
 
 namespace App\Console\Commands;
 
-use App\ContentsParser\RSS2;
+use App\ContentsParser\Request;
 use Illuminate\Console\Command;
 use App\DataAccess\Eloquent\Article;
 
@@ -46,11 +46,11 @@ class Crawl extends Command
                 continue;
             }
 
-            $content = new $site['class']();
-            $items = $content->request($site['crawl_url']);
+            $request = new Request();
+            $items = $request->request($site['crawl_url']);
 
             foreach ($items as $item) {
-                $entity = $content->getEntity($item);
+                $entity = new $site['class']($item);
 
                 // 記事URLが登録済みの場合はスキップする
                 $article = Article::where('article_url', $entity->getArticleUrl())->first();
