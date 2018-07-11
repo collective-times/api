@@ -19,6 +19,7 @@ class ArticleTest extends TestCase
         $response->assertJsonCount(3, 'articles');
         $response->assertJsonStructure(['articles' => [
             [
+                'key',
                 'title',
                 'description',
                 'date',
