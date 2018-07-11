@@ -12,21 +12,31 @@ class ArticleTest extends TestCase
 
     public function testIndex()
     {
-        factory(Article::class, 3)->create();
+        $params = [
+            'id' => 1,
+            'publish_date' => '2018-01-01 10:00:00',
+            'title' => 'hoge',
+            'description' => 'fuga',
+            'article_url' => 'http://hoge.jp',
+            'source_url' => 'http://fuga.jp',
+            'image_url' => 'http://age.jp',
+            'favicon_url' => 'http://sage.jp',
+        ];
+        factory(Article::class, 1)->create($params);
 
         $response = $this->getJson('/v1/articles');
         $response->assertStatus(200);
-        $response->assertJsonCount(3, 'articles');
-        $response->assertJsonStructure(['articles' => [
+        $response->assertJsonCount(1, 'articles');
+        $response->assertExactJson(['articles' => [
             [
-                'key',
-                'title',
-                'description',
-                'date',
-                'articleUrl',
-                'sourceUrl',
-                'imageUrl',
-                'faviconUrl',
+                'key' => $params['id'],
+                'date' => $params['publish_date'],
+                'title' => $params['title'],
+                'description' => $params['description'],
+                'articleUrl' => $params['article_url'],
+                'sourceUrl' => $params['source_url'],
+                'imageUrl' => $params['image_url'],
+                'faviconUrl' => $params['favicon_url'],
             ]
         ]]);
     }
