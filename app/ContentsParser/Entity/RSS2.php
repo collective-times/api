@@ -7,7 +7,7 @@ use Symfony\Component\DomCrawler\Crawler;
 
 class RSS2 implements EntityInterface
 {
-    private $item;
+    protected $item;
 
     public function __construct($item)
     {
@@ -44,7 +44,7 @@ class RSS2 implements EntityInterface
         return $this->createCrawler($this->item->get_content())->filter('body img')->eq(0)->attr('src');
     }
 
-    private function createCrawler($content)
+    protected function createCrawler($content)
     {
         $crawler = new Crawler(null);
         $crawler->addHtmlContent($content);
