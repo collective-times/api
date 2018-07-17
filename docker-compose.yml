@@ -14,6 +14,7 @@ services:
     build: ./docker/api
     volumes:
       - .:/var/www/collective-times/api
+      - ./docker/api/xdebug.ini:/usr/local/etc/php/conf.d/xdebug.ini
     depends_on:
       - database
   database:
