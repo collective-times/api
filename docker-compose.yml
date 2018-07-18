@@ -9,11 +9,11 @@ services:
     environment:
       TZ: Asia/Tokyo
     depends_on:
-      - api
-  api:
-    build: ./docker/api
+      - php-fpm
+  php-fpm:
+    build: ./docker/php-fpm
     volumes:
-      - .:/var/www/collective-times/api
+      - .:/var/www/collective-times/app
     depends_on:
       - database
   database:
