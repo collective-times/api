@@ -11,7 +11,7 @@ class ArticleController extends Controller
     {
         // MEMO: pageクエリパラメーターは、Laravelが自動判別する
         // refs: https://readouble.com/laravel/5.6/ja/pagination.html
-        $articles = Article::paginate(10);
+        $articles = Article::orderBy('publish_date', 'desc')->paginate(10);
 
         return response()->json(['articles' => $articles->map(function($article) {
             return [
