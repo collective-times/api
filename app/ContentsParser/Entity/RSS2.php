@@ -3,6 +3,7 @@
 namespace App\ContentsParser\Entity;
 
 use App\ContentsParser\EntityInterface;
+use InvalidArgumentException;
 use Symfony\Component\DomCrawler\Crawler;
 
 class RSS2 implements EntityInterface
@@ -36,12 +37,15 @@ class RSS2 implements EntityInterface
 
     public function getImageUrl()
     {
-        return $this->createCrawler($this->item->get_content())->filter('body img')->eq(1)->attr('src');
+        try {
+            return $this->createCrawler($this->item->get_content())->filter('body img')->eq(0)->attr('src');
+        } catch (InvalidArgumentException $e) {
+        }
     }
 
     public function getFaviconUrl()
     {
-        return $this->createCrawler($this->item->get_content())->filter('body img')->eq(0)->attr('src');
+        return '';
     }
 
     protected function createCrawler($content)
