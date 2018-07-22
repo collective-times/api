@@ -25,4 +25,10 @@ return [
         'enabled' => true,
         'class' => '\App\ContentsParser\Entity\Aws',
     ],
+    [
+        'crawl_url' => 'https://tech.mercari.com/rss',
+        'source_url' => 'https://tech.mercari.com/',
+        'enabled' => true,
+        'class' => '\App\ContentsParser\Entity\Aws',
+    ],
 ];
