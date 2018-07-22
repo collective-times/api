@@ -1,23 +1,21 @@
 version: '3'
 services:
-  web:
-    image: nginx:alpine
+  nginx:
+    build: ./docker/nginx
     ports:
       - "80:80"
-    volumes:
-      - ./docker/nginx/default.conf:/etc/nginx/conf.d/default.conf:ro
     environment:
       TZ: Asia/Tokyo
     depends_on:
-      - api
-  api:
-    build: ./docker/api
+      - php-fpm
+  php-fpm:
+    build: ./docker/php-fpm
     volumes:
-      - .:/var/www/collective-times/api
+      - .:/var/www/collective-times/app
     depends_on:
       - database
   database:
-    image: mysql:5.7
+    build: ./docker/database
     volumes:
       - ./docker/database/my.cnf:/etc/mysql/conf.d/my.cnf:ro
     environment:
