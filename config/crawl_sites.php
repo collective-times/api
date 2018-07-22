@@ -26,6 +26,12 @@ return [
         'class' => '\App\ContentsParser\Entity\RSS2',
     ],
     [
+        'crawl_url' => 'http://feeds.feedburner.com/GoogleCloudPlatformJapanBlog',
+        'source_url' => 'https://cloudplatform-jp.googleblog.com/',
+        'enabled' => true,
+        'class' => '\App\ContentsParser\Entity\RSS2',
+    ],
+    [
         'crawl_url' => 'https://tech.mercari.com/rss',
         'source_url' => 'https://tech.mercari.com/',
         'enabled' => true,
