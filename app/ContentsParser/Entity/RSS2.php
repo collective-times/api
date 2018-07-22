@@ -4,6 +4,7 @@ namespace App\ContentsParser\Entity;
 
 use App\ContentsParser\EntityInterface;
 use InvalidArgumentException;
+use Symfony\Component\DomCrawler\Crawler;
 
 class RSS2 implements EntityInterface
 {
@@ -45,5 +46,13 @@ class RSS2 implements EntityInterface
     public function getFaviconUrl()
     {
         return '';
+    }
+
+    protected function createCrawler($content)
+    {
+        $crawler = new Crawler(null);
+        $crawler->addHtmlContent($content);
+
+        return $crawler;
     }
 }
