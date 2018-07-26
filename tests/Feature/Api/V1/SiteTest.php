@@ -12,9 +12,23 @@ class SiteTest extends TestCase
 
     public function testIndex()
     {
+        $param = [
+            'feed_url' => 'https://hoge.jp/atom.xml',
+            'source_url' => 'https://hoge.jp/',
+        ];
+        $site = factory(Site::class)->create($param);
         $response = $this->getJson('/v1/sites');
 
         $response->assertStatus(200);
+        $response->assertJsonCount(1);
+        $response->assertExactJson(['sites' => [
+            [
+                'id' => $site->id,
+                'feedUrl' => $param['feed_url'],
+                'sourceUrl' => $param['source_url'],
+                'format' => 'atom',
+            ]
+        ]]);
     }
 
     public function testShow()

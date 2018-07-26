@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Api\V1;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use App\DataAccess\Eloquent\Site;
 
 class SiteController extends Controller
 {
@@ -14,7 +15,15 @@ class SiteController extends Controller
      */
     public function index()
     {
-        return response()->json([]);
+        $sites = Site::all();
+        return response()->json(['sites' => $sites->map(function ($site) {
+            return [
+                'id' => $site->id,
+                'feedUrl' => $site->feed_url,
+                'sourceUrl' => $site->source_url,
+                'format' => $site->format,
+            ];
+        })]);
     }
 
     /**

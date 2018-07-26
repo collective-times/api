@@ -18,5 +18,6 @@ $factory->define(Site::class, function (Faker $faker) {
     return [
         'feed_url' => $faker->url,
         'source_url' => $faker->url,
+        'format' => 'atom',
     ];
 });
