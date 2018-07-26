@@ -48,9 +48,15 @@ class SiteTest extends TestCase
 
     public function testStore()
     {
-        $response = $this->postJson('/v1/sites', $this->param);
+        $created = [
+            'feedUrl' => $this->param['feed_url'],
+            'sourceUrl' => $this->param['source_url'],
+            'format' => $this->param['format'],
+        ];
+        $response = $this->postJson('/v1/sites', $created);
 
         $response->assertStatus(201);
+        $response->assertExactJson(array_merge(['id'=> $response->json('id')], $created));
     }
 
     public function testUpdate()

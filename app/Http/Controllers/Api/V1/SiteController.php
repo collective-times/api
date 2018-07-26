@@ -35,8 +35,8 @@ class SiteController extends Controller
     public function store(Request $request)
     {
         $site = Site::create([
-            'feed_url' => $request->feed_url,
-            'source_url' => $request->source_url,
+            'feed_url' => $request->feedUrl,
+            'source_url' => $request->sourceUrl,
             'format' => $request->input('format'),
         ]);
 
