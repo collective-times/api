@@ -1,4 +1,8 @@
 module.exports = {
+  srcDir: 'resources/nuxt',
+  modules: [
+    '@nuxtjs/axios'
+  ],
   /*
   ** Headers of the page
   */
