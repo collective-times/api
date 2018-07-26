@@ -75,7 +75,18 @@ class SiteController extends Controller
      */
     public function update(Request $request, $id)
     {
-        return response()->json([]);
+        $site = Site::findOrFail($id);
+        $site->feed_url = $request->feedUrl;
+        $site->source_url = $request->sourceUrl;
+        $site->format = $request->input('format');
+        $site->save();
+
+        return response()->json([
+            'id' => $site->id,
+            'feedUrl' => $site->feed_url,
+            'sourceUrl' => $site->source_url,
+            'format' => $site->format,
+        ], 200);
     }
 
     /**

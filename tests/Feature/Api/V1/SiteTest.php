@@ -55,10 +55,16 @@ class SiteTest extends TestCase
 
     public function testUpdate()
     {
-        $site = factory(Site::class)->create(['format' => 'atom']);
-        $response = $this->putJson('/v1/sites/' . $site->id);
+        $site = factory(Site::class)->create([]);
+        $updated = [
+            'feedUrl' => $this->param['feed_url'],
+            'sourceUrl' => $this->param['source_url'],
+            'format' => $this->param['format'],
+        ];
+        $response = $this->putJson('/v1/sites/' . $site->id, $updated);
 
         $response->assertStatus(200);
+        $response->assertExactJson(array_merge(['id'=> $site->id], $updated));
     }
 
     public function testDelete()
