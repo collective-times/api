@@ -11,4 +11,9 @@ class Site extends Model
         'source_url',
         'format',
     ];
+
+    public function articles()
+    {
+        return $this->hasMany(Site::class);
+    }
 }

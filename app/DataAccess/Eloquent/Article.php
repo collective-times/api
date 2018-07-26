@@ -15,4 +15,9 @@ class Article extends Model
         'image_url',
         'favicon_url',
     ];
+
+    public function site()
+    {
+        return $this->belongsTo(Site::class);
+    }
 }
