@@ -79,5 +79,8 @@ class SiteTest extends TestCase
         $response = $this->deleteJson('/v1/sites/' . $site->id);
 
         $response->assertStatus(204);
+        $this->assertDatabaseMissing('sites', [
+            'id' => $site->id
+        ]);
     }
 }

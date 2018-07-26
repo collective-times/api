@@ -97,6 +97,9 @@ class SiteController extends Controller
      */
     public function destroy($id)
     {
+        $site = Site::findOrFail($id);
+        $site->delete();
+
         return response()->json(null, 204);
     }
 }
