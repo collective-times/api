@@ -12,6 +12,7 @@ class SiteTest extends TestCase
     protected $param = [
         'feed_url' => 'https://hoge.jp/atom.xml',
         'source_url' => 'https://hoge.jp/',
+        'format' => 'atom',
     ];
 
     public function testIndex()
@@ -47,7 +48,7 @@ class SiteTest extends TestCase
 
     public function testStore()
     {
-        $response = $this->postJson('/v1/sites', []);
+        $response = $this->postJson('/v1/sites', $this->param);
 
         $response->assertStatus(201);
     }

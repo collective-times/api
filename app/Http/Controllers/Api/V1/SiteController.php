@@ -34,7 +34,18 @@ class SiteController extends Controller
      */
     public function store(Request $request)
     {
-        return response()->json([], 201);
+        $site = Site::create([
+            'feed_url' => $request->feed_url,
+            'source_url' => $request->source_url,
+            'format' => $request->input('format'),
+        ]);
+
+        return response()->json([
+            'id' => $site->id,
+            'feedUrl' => $site->feed_url,
+            'sourceUrl' => $site->source_url,
+            'format' => $site->format,
+        ], 201);
     }
 
     /**
