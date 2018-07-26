@@ -9,14 +9,14 @@ use Tests\TestCase;
 class SiteTest extends TestCase
 {
     use DatabaseTransactions;
+    protected $param = [
+        'feed_url' => 'https://hoge.jp/atom.xml',
+        'source_url' => 'https://hoge.jp/',
+    ];
 
     public function testIndex()
     {
-        $param = [
-            'feed_url' => 'https://hoge.jp/atom.xml',
-            'source_url' => 'https://hoge.jp/',
-        ];
-        $site = factory(Site::class)->create($param);
+        $site = factory(Site::class)->create($this->param);
         $response = $this->getJson('/v1/sites');
 
         $response->assertStatus(200);
@@ -24,8 +24,8 @@ class SiteTest extends TestCase
         $response->assertExactJson(['sites' => [
             [
                 'id' => $site->id,
-                'feedUrl' => $param['feed_url'],
-                'sourceUrl' => $param['source_url'],
+                'feedUrl' => $this->param['feed_url'],
+                'sourceUrl' => $this->param['source_url'],
                 'format' => 'atom',
             ]
         ]]);
@@ -33,10 +33,16 @@ class SiteTest extends TestCase
 
     public function testShow()
     {
-        $site = factory(Site::class)->create(['format' => 'atom']);
+        $site = factory(Site::class)->create($this->param);
         $response = $this->getJson('/v1/sites/' . $site->id);
 
         $response->assertStatus(200);
+        $response->assertExactJson(['site' => [
+            'id' => $site->id,
+            'feedUrl' => $this->param['feed_url'],
+            'sourceUrl' => $this->param['source_url'],
+            'format' => 'atom',
+        ]]);
     }
 
     public function testStore()

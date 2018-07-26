@@ -45,7 +45,14 @@ class SiteController extends Controller
      */
     public function show($id)
     {
-        return response()->json([]);
+        $site = Site::findOrFail($id);
+
+        return response()->json(['site' => [
+            'id' => $site->id,
+            'feedUrl' => $site->feed_url,
+            'sourceUrl' => $site->source_url,
+            'format' => $site->format,
+        ]]);
     }
 
     /**
