@@ -31,7 +31,7 @@ export default {
   },
   async asyncData({ app }) {
     console.log("Hello World");
-    let articles = await app.$axios.$get('http://localhost/v1/articles');
+    let articles = await app.$axios.$get('https://collective-times-api.herokuapp.com/v1/articles');
     console.log(articles);
   }
 }
