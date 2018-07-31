@@ -28,6 +28,11 @@ import AppLogo from '~/components/AppLogo.vue'
 export default {
   components: {
     AppLogo
+  },
+  async asyncData({ app }) {
+    console.log("Hello World");
+    let articles = await app.$axios.$get('http://localhost/v1/articles');
+    console.log(articles);
   }
 }
 </script>
