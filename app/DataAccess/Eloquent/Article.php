@@ -23,6 +23,6 @@ class Article extends Model
 
     public function getShortDescriptionAttribute()
     {
-        return mb_substr(strip_tags($this->description), 0, 200);
+        return mb_substr(trim(strip_tags($this->description)), 0, 200);
     }
 }
