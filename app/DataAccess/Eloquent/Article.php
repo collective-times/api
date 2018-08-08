@@ -20,4 +20,9 @@ class Article extends Model
     {
         return $this->belongsTo(Site::class);
     }
+
+    public function getShortDescriptionAttribute()
+    {
+        return mb_substr(trim(strip_tags($this->description)), 0, 200);
+    }
 }

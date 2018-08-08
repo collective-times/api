@@ -17,7 +17,7 @@ class ArticleController extends Controller
             return [
                 'key' => $article->id,
                 'title' => $article->title,
-                'description' => $article->description,
+                'description' => $article->short_description,
                 'date' => $article->publish_date,
                 'articleUrl' => $article->article_url,
                 'sourceUrl' => $article->source_url,
