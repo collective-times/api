@@ -52,6 +52,13 @@ class SiteTest extends TestCase
         ]]);
     }
 
+    public function testShow_WillResponseValidationError_WhenGivenLessParameters()
+    {
+        $response = $this->getJson('/v1/sites/9999');
+
+        $response->assertStatus(404);
+    }
+
     public function testStore()
     {
         $created = [
@@ -65,6 +72,25 @@ class SiteTest extends TestCase
 
         $response->assertStatus(201);
         $response->assertExactJson(array_merge(['id'=> $response->json('id')], $created));
+    }
+
+    public function testStore_WillResponseValidationError_WhenGivenLessParameters()
+    {
+         $created = [
+            'feedUrl' => $this->param['feed_url'],
+            'sourceUrl' => $this->param['source_url'],
+            'crawlable' => $this->param['crawlable'],
+            'class' => $this->param['class'],
+        ];
+        $response = $this->postJson('/v1/sites', $created);
+
+        $response->assertStatus(422);
+        $this->assertEquals('The given data was invalid.', $response->json('message'));
+        $this->assertEquals('The title field is required.', $response->json('errors.title.0'));
+        $response->assertJsonStructure([
+            'message',
+            'errors'
+        ]);
     }
 
     public function testUpdate()
@@ -83,6 +109,13 @@ class SiteTest extends TestCase
         $response->assertExactJson(array_merge(['id'=> $site->id], $updated));
     }
 
+    public function testUpdate_WillResponse404_WhenSpecifiedNotExceptingId()
+    {
+        $response = $this->putJson('/v1/sites/9999');
+
+        $response->assertStatus(404);
+    }
+
     public function testDelete()
     {
         $site = factory(Site::class)->create(['class' => '\App\ContentsParser\Entity\RSS']);
@@ -92,5 +125,12 @@ class SiteTest extends TestCase
         $this->assertDatabaseMissing('sites', [
             'id' => $site->id
         ]);
+    }
+
+    public function testDelete_WillResponse404_WhenSpecifiedNotExceptingId()
+    {
+        $response = $this->deleteJson('/v1/sites/9999');
+
+        $response->assertStatus(404);
     }
 }
