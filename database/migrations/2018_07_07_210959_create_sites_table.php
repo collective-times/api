@@ -18,6 +18,7 @@ class CreateSitesTable extends Migration
             $table->text('title');
             $table->text('feed_url');
             $table->text('source_url');
+            $table->boolean('crawlable');
             $table->text('format');
             $table->timestamps();
         });
