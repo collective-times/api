@@ -57,6 +57,9 @@ class Handler extends ExceptionHandler
             return $this->convertValidationExceptionToResponse($exception, $request);
         } else {
             $response = $this->convertExceptionToArray($exception);
+            $response['type'] = method_exists($exception, 'getType')
+                ? $exception->getType() :
+                '';
         }
 
         return response()->json(
