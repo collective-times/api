@@ -19,9 +19,11 @@ class SiteController extends Controller
         return response()->json(['sites' => $sites->map(function ($site) {
             return [
                 'id' => $site->id,
+                'title' => $site->title,
                 'feedUrl' => $site->feed_url,
                 'sourceUrl' => $site->source_url,
-                'format' => $site->format,
+                'crawlable' => (boolean)$site->crawlable,
+                'class' => $site->class,
             ];
         })]);
     }
@@ -35,16 +37,20 @@ class SiteController extends Controller
     public function store(Request $request)
     {
         $site = Site::create([
+            'title' => $request->title,
             'feed_url' => $request->feedUrl,
             'source_url' => $request->sourceUrl,
-            'format' => $request->input('format'),
+            'crawlable' => $request->crawlable,
+            'class' => $request->input('class'),
         ]);
 
         return response()->json([
             'id' => $site->id,
+            'title' => $site->title,
             'feedUrl' => $site->feed_url,
             'sourceUrl' => $site->source_url,
-            'format' => $site->format,
+            'crawlable' => (boolean) $site->crawlable,
+            'class' => $site->class,
         ], 201);
     }
 
@@ -60,9 +66,11 @@ class SiteController extends Controller
 
         return response()->json(['site' => [
             'id' => $site->id,
+            'title' => $site->title,
             'feedUrl' => $site->feed_url,
             'sourceUrl' => $site->source_url,
-            'format' => $site->format,
+            'crawlable' => (boolean) $site->crawlable,
+            'class' => $site->class,
         ]]);
     }
 
@@ -76,16 +84,20 @@ class SiteController extends Controller
     public function update(Request $request, $id)
     {
         $site = Site::findOrFail($id);
+        $site->title = $request->title;
         $site->feed_url = $request->feedUrl;
         $site->source_url = $request->sourceUrl;
-        $site->format = $request->input('format');
+        $site->crawlable = $request->crawlable;
+        $site->class = $request->input('class');
         $site->save();
 
         return response()->json([
             'id' => $site->id,
+            'title' => $site->title,
             'feedUrl' => $site->feed_url,
             'sourceUrl' => $site->source_url,
-            'format' => $site->format,
+            'crawlable' => (boolean) $site->crawlable,
+            'class' => $site->class,
         ], 200);
     }
 

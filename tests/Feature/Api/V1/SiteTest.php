@@ -10,9 +10,11 @@ class SiteTest extends TestCase
 {
     use DatabaseTransactions;
     protected $param = [
+        'title' => 'hoge',
         'feed_url' => 'https://hoge.jp/atom.xml',
         'source_url' => 'https://hoge.jp/',
-        'format' => 'atom',
+        'crawlable' => true,
+        'class' => '\App\ContentsParser\Entity\RSS',
     ];
 
     public function testIndex()
@@ -25,9 +27,11 @@ class SiteTest extends TestCase
         $response->assertExactJson(['sites' => [
             [
                 'id' => $site->id,
+                'title' => $site->title,
                 'feedUrl' => $this->param['feed_url'],
                 'sourceUrl' => $this->param['source_url'],
-                'format' => 'atom',
+                'crawlable' => true,
+                'class' => '\App\ContentsParser\Entity\RSS',
             ]
         ]]);
     }
@@ -40,18 +44,22 @@ class SiteTest extends TestCase
         $response->assertStatus(200);
         $response->assertExactJson(['site' => [
             'id' => $site->id,
+            'title' => $site->title,
             'feedUrl' => $this->param['feed_url'],
             'sourceUrl' => $this->param['source_url'],
-            'format' => 'atom',
+            'crawlable' => true,
+            'class' => '\App\ContentsParser\Entity\RSS',
         ]]);
     }
 
     public function testStore()
     {
         $created = [
+            'title' => $this->param['title'],
             'feedUrl' => $this->param['feed_url'],
             'sourceUrl' => $this->param['source_url'],
-            'format' => $this->param['format'],
+            'crawlable' => $this->param['crawlable'],
+            'class' => $this->param['class'],
         ];
         $response = $this->postJson('/v1/sites', $created);
 
@@ -63,9 +71,11 @@ class SiteTest extends TestCase
     {
         $site = factory(Site::class)->create([]);
         $updated = [
+            'title' => $this->param['title'],
             'feedUrl' => $this->param['feed_url'],
             'sourceUrl' => $this->param['source_url'],
-            'format' => $this->param['format'],
+            'crawlable' => $this->param['crawlable'],
+            'class' => $this->param['class'],
         ];
         $response = $this->putJson('/v1/sites/' . $site->id, $updated);
 
@@ -75,7 +85,7 @@ class SiteTest extends TestCase
 
     public function testDelete()
     {
-        $site = factory(Site::class)->create(['format' => 'atom']);
+        $site = factory(Site::class)->create(['class' => '\App\ContentsParser\Entity\RSS']);
         $response = $this->deleteJson('/v1/sites/' . $site->id);
 
         $response->assertStatus(204);

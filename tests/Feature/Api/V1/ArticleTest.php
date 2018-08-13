@@ -3,6 +3,7 @@
 namespace Tests\Feature\Api\V1;
 
 use App\DataAccess\Eloquent\Article;
+use App\DataAccess\Eloquent\Site;
 use Illuminate\Foundation\Testing\DatabaseTransactions;
 use Tests\TestCase;
 
@@ -12,8 +13,10 @@ class ArticleTest extends TestCase
 
     public function testIndex()
     {
+        $site = factory(Site::class)->create();
         $params = [
             'id' => 1,
+            'site_id' => $site->id,
             'publish_date' => '2018-01-01 10:00:00',
             'title' => 'hoge',
             'description' => 'fuga',
@@ -34,6 +37,7 @@ class ArticleTest extends TestCase
                 'title' => $params['title'],
                 'description' => $params['description'],
                 'articleUrl' => $params['article_url'],
+                'sourceTitle' => $site->title,
                 'sourceUrl' => $params['source_url'],
                 'imageUrl' => $params['image_url'],
                 'faviconUrl' => $params['favicon_url'],
