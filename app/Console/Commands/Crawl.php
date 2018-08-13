@@ -5,6 +5,7 @@ namespace App\Console\Commands;
 use App\ContentsParser\Request;
 use Illuminate\Console\Command;
 use App\DataAccess\Eloquent\Article;
+use App\DataAccess\Eloquent\Site;
 
 class Crawl extends Command
 {
@@ -39,18 +40,14 @@ class Crawl extends Command
      */
     public function handle()
     {
-        $sites = config('crawl_sites');
+        $sites = Site::where('crawlable', true)->get();
 
         foreach ($sites as $site) {
-            if (!$site['enabled']) {
-                continue;
-            }
-
             $request = new Request();
-            $items = $request->request($site['crawl_url']);
+            $items = $request->request($site->source_url);
 
             foreach ($items as $item) {
-                $entity = new $site['class']($item);
+                $entity = new $site->class($item);
 
                 // 記事URLが登録済みの場合はスキップする
                 $article = Article::where('article_url', $entity->getArticleUrl())->first();
@@ -63,7 +60,7 @@ class Crawl extends Command
                     'description' => $entity->getDescription(),
                     'publish_date' => $entity->getPublishDate(),
                     'article_url' => $entity->getArticleUrl(),
-                    'source_url' => $site['source_url'],
+                    'source_url' => $site->source_url,
                     'image_url' => $entity->getImageUrl(),
                     'favicon_url' => $entity->getFaviconUrl(),
                 ]);
