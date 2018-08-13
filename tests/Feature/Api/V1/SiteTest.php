@@ -70,12 +70,16 @@ class SiteTest extends TestCase
     public function testStore_WillResponseValidationError_WhenGivenLessParameters()
     {
          $created = [
-            'title' => $this->param['title'],
+            'feedUrl' => $this->param['feed_url'],
+            'sourceUrl' => $this->param['source_url'],
+            'crawlable' => $this->param['crawlable'],
+            'class' => $this->param['class'],
         ];
         $response = $this->postJson('/v1/sites', $created);
 
         $response->assertStatus(422);
         $this->assertEquals('The given data was invalid.', $response->json('message'));
+        $this->assertEquals('The title field is required.', $response->json('errors.title.0'));
         $response->assertJsonStructure([
             'message',
             'errors'
