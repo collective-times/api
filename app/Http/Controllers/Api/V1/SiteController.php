@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Api\V1;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\SiteRequest;
 use Illuminate\Http\Request;
 use App\DataAccess\Eloquent\Site;
 
@@ -34,7 +35,7 @@ class SiteController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(SiteRequest $request)
     {
         $site = Site::create([
             'title' => $request->title,
