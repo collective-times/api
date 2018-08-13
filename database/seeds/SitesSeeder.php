@@ -55,7 +55,7 @@ class SitesSeeder extends Seeder
                 'feed_url' => $site['crawl_url'],
                 'source_url' => $site['source_url'],
                 'crawlable' => $site['enabled'],
-                'class' => $site['title'],
+                'class' => $site['class'],
                 'created_at' => new DateTime(),
                 'updated_at' => new DateTime(),
             ]);
