@@ -47,7 +47,6 @@ jobs:
 
       # run seeding
       - run: php artisan migrate
-      - run: php artisan db:seed
 
       # run tests!
       - run: vendor/bin/phpunit tests/

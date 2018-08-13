@@ -16,8 +16,10 @@ use App\DataAccess\Eloquent\Site;
 
 $factory->define(Site::class, function (Faker $faker) {
     return [
+        'title' => $faker->title,
         'feed_url' => $faker->url,
         'source_url' => $faker->url,
-        'format' => 'atom',
+        'crawlable' => true,
+        'class' => '\App\ContentsParser\Entity\RSS',
     ];
 });

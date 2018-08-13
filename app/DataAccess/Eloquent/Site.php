@@ -7,9 +7,11 @@ use Illuminate\Database\Eloquent\Model;
 class Site extends Model
 {
     protected $fillable = [
+        'title',
         'feed_url',
         'source_url',
-        'format',
+        'crawlable',
+        'class',
     ];
 
     public function articles()
