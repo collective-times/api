@@ -102,6 +102,13 @@ class SiteTest extends TestCase
         $response->assertExactJson(array_merge(['id'=> $site->id], $updated));
     }
 
+    public function testUpdate_WillResponse404_WhenSpecifiedNotExceptingId()
+    {
+        $response = $this->putJson('/v1/sites/9999');
+
+        $response->assertStatus(404);
+    }
+
     public function testDelete()
     {
         $site = factory(Site::class)->create(['class' => '\App\ContentsParser\Entity\RSS']);
