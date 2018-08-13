@@ -67,6 +67,21 @@ class SiteTest extends TestCase
         $response->assertExactJson(array_merge(['id'=> $response->json('id')], $created));
     }
 
+    public function testStore_WillResponseValidationError_WhenGivenLessParameters()
+    {
+         $created = [
+            'title' => $this->param['title'],
+        ];
+        $response = $this->postJson('/v1/sites', $created);
+
+        $response->assertStatus(422);
+        $this->assertEquals('The given data was invalid.', $response->json('message'));
+        $response->assertJsonStructure([
+            'message',
+            'errors'
+        ]);
+    }
+
     public function testUpdate()
     {
         $site = factory(Site::class)->create([]);
