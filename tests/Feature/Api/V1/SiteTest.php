@@ -52,6 +52,13 @@ class SiteTest extends TestCase
         ]]);
     }
 
+    public function testShow_WillResponseValidationError_WhenGivenLessParameters()
+    {
+        $response = $this->getJson('/v1/sites/9999');
+
+        $response->assertStatus(404);
+    }
+
     public function testStore()
     {
         $created = [
