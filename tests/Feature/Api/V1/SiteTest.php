@@ -112,4 +112,11 @@ class SiteTest extends TestCase
             'id' => $site->id
         ]);
     }
+
+    public function testDelete_WillResponse404_WhenSpecifiedNotExceptingId()
+    {
+        $response = $this->deleteJson('/v1/sites/9999');
+
+        $response->assertStatus(404);
+    }
 }

@@ -49,6 +49,8 @@ class Handler extends ExceptionHandler
      */
     public function render($request, Exception $exception)
     {
+        $exception = $this->prepareException($exception);
+
         if ($exception instanceof AuthenticationException) {
             return $this->unauthenticated($request, $exception);
         } elseif ($exception instanceof ValidationException) {
@@ -57,7 +59,10 @@ class Handler extends ExceptionHandler
             $response = $this->convertExceptionToArray($exception);
         }
 
-        return response()->json($response, $exception->status);
+        return response()->json(
+            $response,
+            $exception->getStatusCode()
+        );
 //        return parent::render($request, $exception);
     }
 }
