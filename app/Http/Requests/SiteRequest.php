@@ -24,7 +24,11 @@ class SiteRequest extends FormRequest
     public function rules()
     {
         return [
-            //
+            'title' => 'required',
+            'feed_url' => 'required',
+            'source_url' => 'required',
+            'crawlable' => 'required',
+            'class' => 'required',
         ];
     }
 }
