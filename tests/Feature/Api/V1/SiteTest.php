@@ -4,6 +4,8 @@ namespace Tests\Feature\Api\V1;
 
 use App\DataAccess\Eloquent\Site;
 use Illuminate\Foundation\Testing\DatabaseTransactions;
+use Laravel\Passport\Passport;
+use App\DataAccess\Eloquent\User;
 use Tests\TestCase;
 
 class SiteTest extends TestCase
@@ -16,6 +18,14 @@ class SiteTest extends TestCase
         'crawlable' => true,
         'class' => '\App\ContentsParser\Entity\RSS',
     ];
+
+    public function setUp()
+    {
+        parent::setUp();
+
+        $user = factory(User::class)->create();
+        Passport::actingAs($user);
+    }
 
     public function testIndex()
     {
