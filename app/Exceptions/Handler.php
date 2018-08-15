@@ -49,23 +49,23 @@ class Handler extends ExceptionHandler
      */
     public function render($request, Exception $exception)
     {
-        $exception = $this->prepareException($exception);
-
-        if ($exception instanceof AuthenticationException) {
-            return $this->unauthenticated($request, $exception);
-        } elseif ($exception instanceof ValidationException) {
-            return $this->convertValidationExceptionToResponse($exception, $request);
-        } else {
-            $response = $this->convertExceptionToArray($exception);
-            $response['type'] = method_exists($exception, 'getType')
-                ? $exception->getType() :
-                '';
-        }
-
-        return response()->json(
-            $response,
-            $exception->getStatusCode()
-        );
-//        return parent::render($request, $exception);
+//        $exception = $this->prepareException($exception);
+//
+//        if ($exception instanceof AuthenticationException) {
+//            return $this->unauthenticated($request, $exception);
+//        } elseif ($exception instanceof ValidationException) {
+//            return $this->convertValidationExceptionToResponse($exception, $request);
+//        } else {
+//            $response = $this->convertExceptionToArray($exception);
+//            $response['type'] = method_exists($exception, 'getType')
+//                ? $exception->getType() :
+//                '';
+//        }
+//
+//        return response()->json(
+//            $response,
+//            $exception->getStatusCode()
+//        );
+        return parent::render($request, $exception);
     }
 }
