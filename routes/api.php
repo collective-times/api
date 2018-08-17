@@ -18,7 +18,7 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 });
 Route::prefix('v1')->namespace('Api\V1')->group(function() {
     Route::get('articles', 'ArticleController@index');
-    Route::get('contents-parser', 'ContentsParserController@index');
+    Route::get('contents-parsers', 'ContentsParserController@index');
 
     Route::middleware('auth:api')->group(function () {
         Route::resource('sites', 'SiteController', ['only' => ['index', 'store', 'show', 'update', 'destroy']]);

@@ -8,7 +8,7 @@ class ContentsParserController extends Controller
 {
     public function index()
     {
-        return response()->json(['contents-parser' => collect(config('contentsparser'))->map(function($parser) {
+        return response()->json(['contents-parsers' => collect(config('contentsparser'))->map(function($parser) {
             return [
                 'type' => $parser['type'],
                 'class' => $parser['class'],

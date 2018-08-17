@@ -11,10 +11,10 @@ class ContentsParserTest extends TestCase
 
     public function testIndex()
     {
-        $response = $this->getJson('/v1/contents-parser');
+        $response = $this->getJson('/v1/contents-parsers');
 
         $response->assertStatus(200);
-        $response->assertJsonStructure(['contents-parser' => [
+        $response->assertJsonStructure(['contents-parsers' => [
             ['type', 'class']
         ]]);
     }
