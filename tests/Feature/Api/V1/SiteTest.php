@@ -16,7 +16,7 @@ class SiteTest extends TestCase
         'feed_url' => 'https://hoge.jp/atom.xml',
         'source_url' => 'https://hoge.jp/',
         'crawlable' => true,
-        'class' => '\App\ContentsParser\Entity\RSS',
+        'type' => 'rss',
     ];
 
     public function setUp()
@@ -41,7 +41,7 @@ class SiteTest extends TestCase
                 'feedUrl' => $this->param['feed_url'],
                 'sourceUrl' => $this->param['source_url'],
                 'crawlable' => true,
-                'class' => '\App\ContentsParser\Entity\RSS',
+                'type' => 'rss',
             ]
         ]]);
     }
@@ -58,7 +58,7 @@ class SiteTest extends TestCase
             'feedUrl' => $this->param['feed_url'],
             'sourceUrl' => $this->param['source_url'],
             'crawlable' => true,
-            'class' => '\App\ContentsParser\Entity\RSS',
+            'type' => 'rss',
         ]]);
     }
 
@@ -76,7 +76,7 @@ class SiteTest extends TestCase
             'feedUrl' => $this->param['feed_url'],
             'sourceUrl' => $this->param['source_url'],
             'crawlable' => $this->param['crawlable'],
-            'class' => $this->param['class'],
+            'type' => $this->param['type'],
         ];
         $response = $this->postJson('/v1/sites', $created);
 
@@ -90,7 +90,7 @@ class SiteTest extends TestCase
             'feedUrl' => $this->param['feed_url'],
             'sourceUrl' => $this->param['source_url'],
             'crawlable' => $this->param['crawlable'],
-            'class' => $this->param['class'],
+            'type' => $this->param['type'],
         ];
         $response = $this->postJson('/v1/sites', $created);
 
@@ -111,7 +111,7 @@ class SiteTest extends TestCase
             'feedUrl' => $this->param['feed_url'],
             'sourceUrl' => $this->param['source_url'],
             'crawlable' => $this->param['crawlable'],
-            'class' => $this->param['class'],
+            'type' => $this->param['type'],
         ];
         $response = $this->putJson('/v1/sites/' . $site->id, $updated);
 
@@ -128,7 +128,7 @@ class SiteTest extends TestCase
 
     public function testDelete()
     {
-        $site = factory(Site::class)->create(['class' => '\App\ContentsParser\Entity\RSS']);
+        $site = factory(Site::class)->create(['type' => 'rss']);
         $response = $this->deleteJson('/v1/sites/' . $site->id);
 
         $response->assertStatus(204);

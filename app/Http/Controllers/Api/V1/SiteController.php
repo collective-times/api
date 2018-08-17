@@ -24,7 +24,7 @@ class SiteController extends Controller
                 'feedUrl' => $site->feed_url,
                 'sourceUrl' => $site->source_url,
                 'crawlable' => (boolean)$site->crawlable,
-                'class' => $site->class,
+                'type' => $site->type,
             ];
         })]);
     }
@@ -42,7 +42,7 @@ class SiteController extends Controller
             'feed_url' => $request->feedUrl,
             'source_url' => $request->sourceUrl,
             'crawlable' => $request->crawlable,
-            'class' => $request->input('class'),
+            'type' => $request->input('type'),
         ]);
 
         return response()->json([
@@ -51,7 +51,7 @@ class SiteController extends Controller
             'feedUrl' => $site->feed_url,
             'sourceUrl' => $site->source_url,
             'crawlable' => (boolean) $site->crawlable,
-            'class' => $site->class,
+            'type' => $site->type,
         ], 201);
     }
 
@@ -71,7 +71,7 @@ class SiteController extends Controller
             'feedUrl' => $site->feed_url,
             'sourceUrl' => $site->source_url,
             'crawlable' => (boolean) $site->crawlable,
-            'class' => $site->class,
+            'type' => $site->type,
         ]]);
     }
 
@@ -89,7 +89,7 @@ class SiteController extends Controller
         $site->feed_url = $request->feedUrl;
         $site->source_url = $request->sourceUrl;
         $site->crawlable = $request->crawlable;
-        $site->class = $request->input('class');
+        $site->type = $request->input('type');
         $site->save();
 
         return response()->json([
@@ -98,7 +98,7 @@ class SiteController extends Controller
             'feedUrl' => $site->feed_url,
             'sourceUrl' => $site->source_url,
             'crawlable' => (boolean) $site->crawlable,
-            'class' => $site->class,
+            'type' => $site->type,
         ], 200);
     }
 
