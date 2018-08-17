@@ -1,6 +1,6 @@
 <?php
 
 return [
-    ['name' => 'rss', 'class' => '\App\ContentsParser\Entity\RSS2'],
-    ['name' => 'hatena', 'class' => '\App\ContentsParser\Entity\Hatena'],
+    ['type' => 'rss', 'class' => '\App\ContentsParser\Entity\RSS2'],
+    ['type' => 'hatena', 'class' => '\App\ContentsParser\Entity\Hatena'],
 ];
