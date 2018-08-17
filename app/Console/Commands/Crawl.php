@@ -47,7 +47,8 @@ class Crawl extends Command
             $items = $request->request($site->source_url);
 
             foreach ($items as $item) {
-                $entity = new $site->class($item);
+                $parser = collect(config('contentsparser'))->firstWhere('name', $site->type);
+                $entity = new $parser['class']($item);
 
                 // 記事URLが登録済みの場合はスキップする
                 $article = Article::where('article_url', $entity->getArticleUrl())->first();
