@@ -28,7 +28,7 @@ class SiteRequest extends FormRequest
             'feedUrl' => 'required',
             'sourceUrl' => 'required',
             'crawlable' => 'required',
-            'class' => 'required',
+            'type' => 'required',
         ];
     }
 }

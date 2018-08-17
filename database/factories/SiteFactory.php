@@ -20,6 +20,6 @@ $factory->define(Site::class, function (Faker $faker) {
         'feed_url' => $faker->url,
         'source_url' => $faker->url,
         'crawlable' => true,
-        'class' => '\App\ContentsParser\Entity\RSS',
+        'type' => '\App\ContentsParser\Entity\RSS',
     ];
 });

@@ -11,7 +11,7 @@ class Site extends Model
         'feed_url',
         'source_url',
         'crawlable',
-        'class',
+        'type',
     ];
 
     public function articles()
