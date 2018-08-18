@@ -14,6 +14,7 @@ class CreateAndroidDevicesTable extends Migration
     public function up()
     {
         Schema::create('android_devices', function (Blueprint $table) {
+            $table->increments('id');
             $table->text('registration_id');
             $table->timestamps();
         });
