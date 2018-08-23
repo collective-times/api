@@ -25,8 +25,8 @@ class SiteRequest extends FormRequest
     {
         return [
             'title' => 'required',
-            'feedUrl' => 'required',
-            'sourceUrl' => 'required',
+            'feedUrl' => 'required|unique:sites,feed_url',
+            'sourceUrl' => 'required|unique:sites,source_url',
             'crawlable' => 'required',
             'type' => 'required',
         ];
