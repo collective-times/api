@@ -85,6 +85,31 @@ class SiteTest extends TestCase
         $response->assertExactJson(array_merge(['id'=> $response->json('id')], $created));
     }
 
+    public function testStore_WillResponseValidationError_WhenTryToRegisterDupulicatedData()
+    {
+        factory(Site::class)->create($this->param);
+
+        $created = [
+            'title' => $this->param['title'],
+            'feedUrl' => $this->param['feed_url'],
+            'sourceUrl' => $this->param['source_url'],
+            'crawlable' => $this->param['crawlable'],
+            'type' => $this->param['type'],
+        ];
+        $response = $this->postJson('/v1/sites', $created);
+
+        $response->assertStatus(422);
+
+        $this->assertEquals('The given data was invalid.', $response->json('message'));
+        $this->assertEquals('The feed url has already been taken.', $response->json('errors.feedUrl.0'));
+        $this->assertEquals('The source url has already been taken.', $response->json('errors.sourceUrl.0'));
+
+        $response->assertJsonStructure([
+            'message',
+            'errors'
+        ]);
+    }
+
     public function testStore_WillResponseValidationError_WhenGivenLessParameters()
     {
          $created = [
