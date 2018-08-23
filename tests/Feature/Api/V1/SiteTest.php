@@ -2,6 +2,7 @@
 
 namespace Tests\Feature\Api\V1;
 
+use App\DataAccess\Eloquent\Article;
 use App\DataAccess\Eloquent\Site;
 use Illuminate\Foundation\Testing\DatabaseTransactions;
 use Laravel\Passport\Passport;
@@ -130,7 +131,19 @@ class SiteTest extends TestCase
     {
         $site = factory(Site::class)->create(['type' => 'rss']);
         $response = $this->deleteJson('/v1/sites/' . $site->id);
+        $response->assertStatus(204);
+        $this->assertDatabaseMissing('sites', [
+            'id' => $site->id
+        ]);
+    }
 
+    public function testDelete_WillDeleteWithArticles_WhenDeleteSite()
+    {
+        $site = factory(Site::class)->create(['type' => 'rss']);
+        factory(Article::class, 3)->create([
+            'site_id' => $site->id
+        ]);
+        $response = $this->deleteJson('/v1/sites/' . $site->id);
         $response->assertStatus(204);
         $this->assertDatabaseMissing('sites', [
             'id' => $site->id
