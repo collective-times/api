@@ -16,6 +16,6 @@ class Site extends Model
 
     public function articles()
     {
-        return $this->hasMany(Site::class);
+        return $this->hasMany(Article::class);
     }
 }

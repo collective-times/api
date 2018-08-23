@@ -111,6 +111,7 @@ class SiteController extends Controller
     public function destroy($id)
     {
         $site = Site::findOrFail($id);
+        $site->articles()->delete(); // 外部キー制約があるため、先に紐付いている記事を削除する
         $site->delete();
 
         return response()->json(null, 204);
