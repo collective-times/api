@@ -63,13 +63,4 @@ class ArticleTest extends TestCase
         $response->assertStatus(200);
         $response->assertJsonCount(5, 'articles');
     }
-
-    public function testIndex_WillResponseZeroItems_WhenPage3()
-    {
-        factory(Article::class, 15)->create();
-
-        $response = $this->getJson('/v1/articles?page=2');
-        $response->assertStatus(200);
-        $response->assertJsonCount(5, 'articles');
-    }
 }
