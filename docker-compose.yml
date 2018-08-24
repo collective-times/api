@@ -26,4 +26,6 @@ services:
       MYSQL_USER: collective_times
       MYSQL_PASSWORD: collective_times_development
       MYSQL_ALLOW_EMPTY_PASSWORD: 'yes'
+  cache:
+    image: redis:4
 
