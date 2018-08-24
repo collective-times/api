@@ -20,7 +20,7 @@ class ArticleController extends Controller
                 'description' => $article->short_description,
                 'date' => $article->publish_date,
                 'articleUrl' => $article->article_url,
-                'sourceTitle' => $article->site->title,
+                'sourceTitle' => $article->site->title ?? null,
                 'sourceUrl' => $article->source_url,
                 'imageUrl' => $article->image_url,
                 'faviconUrl' => $article->favicon_url,
