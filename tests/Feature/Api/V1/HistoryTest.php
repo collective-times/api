@@ -92,7 +92,7 @@ class HistoryTest extends TestCase
         ]]);
     }
 
-    public function testStore()
+    public function testStore_WhenLoggedInUser()
     {
         Passport::actingAs($this->user);
         $created = [
@@ -104,6 +104,21 @@ class HistoryTest extends TestCase
         $response->assertExactJson($created);
         $this->assertDatabaseHas('article_user', [
             'user_id' => $this->user->id,
+            'article_id' => $this->article->id,
+        ]);
+    }
+
+    public function testStore_WhenGuestUser()
+    {
+        $created = [
+            'article_id' => $this->article->id,
+        ];
+        $response = $this->postJson('/v1/histories', $created);
+
+        $response->assertStatus(201);
+        $response->assertExactJson($created);
+        $this->assertDatabaseHas('article_user', [
+            'user_id' => null,
             'article_id' => $this->article->id,
         ]);
     }

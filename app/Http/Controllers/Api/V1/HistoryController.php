@@ -51,7 +51,9 @@ class HistoryController extends Controller
          if (Auth::check()) {
             Auth::user()->articles()->attach($request->article_id);
         } else {
-            // TODO
+             ArticleUser::create([
+                 'article_id' => $request->article_id
+             ]);
         }
 
         return response()->json([
