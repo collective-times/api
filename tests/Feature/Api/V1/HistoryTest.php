@@ -14,22 +14,19 @@ class HistoryTest extends TestCase
 {
     use DatabaseTransactions;
     protected $user;
+    protected $site;
+    protected $articleParam;
+    protected $article;
 
     public function setUp()
     {
         parent::setUp();
 
-        $this->user = factory(User::class)
-            ->create();
-        Passport::actingAs($this->user);
-    }
-
-    public function testIndex()
-    {
-        $site = factory(Site::class)->create();
-        $article = [
+        $this->user = factory(User::class)->create();
+        $this->site = factory(Site::class)->create();
+        $this->articleParam = [
             'id' => 1,
-            'site_id' => $site->id,
+            'site_id' => $this->site->id,
             'publish_date' => '2018-01-01 10:00:00',
             'title' => 'hoge',
             'description' => 'fuga',
@@ -38,8 +35,14 @@ class HistoryTest extends TestCase
             'image_url' => 'http://age.jp',
             'favicon_url' => 'http://sage.jp',
         ];
-        $article = factory(Article::class)->create($article);
-        $this->user->articles()->save($article);
+        $this->article = factory(Article::class)->create($this->articleParam);
+
+        Passport::actingAs($this->user);
+    }
+
+    public function testIndex()
+    {
+        $this->user->articles()->save($this->article);
 
         $response = $this->getJson('/v1/histories');
 
@@ -47,15 +50,15 @@ class HistoryTest extends TestCase
         $response->assertExactJson(['histories' => [
             [
                 'article' => [
-                    'key' => $article['id'],
-                    'date' => $article['publish_date'],
-                    'title' => $article['title'],
-                    'description' => $article['description'],
-                    'articleUrl' => $article['article_url'],
-                    'sourceTitle' => $site->title,
-                    'sourceUrl' => $article['source_url'],
-                    'imageUrl' => $article['image_url'],
-                    'faviconUrl' => $article['favicon_url'],
+                    'key' => $this->articleParam['id'],
+                    'date' => $this->articleParam['publish_date'],
+                    'title' => $this->articleParam['title'],
+                    'description' => $this->articleParam['description'],
+                    'articleUrl' => $this->articleParam['article_url'],
+                    'sourceTitle' => $this->site->title,
+                    'sourceUrl' => $this->articleParam['source_url'],
+                    'imageUrl' => $this->articleParam['image_url'],
+                    'faviconUrl' => $this->articleParam['favicon_url'],
                 ],
                 'user' => [
                     'name' => $this->user->name
@@ -66,22 +69,8 @@ class HistoryTest extends TestCase
 
     public function testStore()
     {
-        $site = factory(Site::class)->create();
-        $article = [
-            'id' => 1,
-            'site_id' => $site->id,
-            'publish_date' => '2018-01-01 10:00:00',
-            'title' => 'hoge',
-            'description' => 'fuga',
-            'article_url' => 'http://hoge.jp',
-            'source_url' => 'http://fuga.jp',
-            'image_url' => 'http://age.jp',
-            'favicon_url' => 'http://sage.jp',
-        ];
-        $article = factory(Article::class)->create($article);
-
         $created = [
-            'article_id' => $article->id,
+            'article_id' => $this->article->id,
         ];
         $response = $this->postJson('/v1/histories', $created);
 
@@ -89,33 +78,20 @@ class HistoryTest extends TestCase
         $response->assertExactJson($created);
         $this->assertDatabaseHas('article_user', [
             'user_id' => $this->user->id,
-            'article_id' => $article->id,
+            'article_id' => $this->article->id,
         ]);
     }
 
     public function testDestroy()
     {
-        $site = factory(Site::class)->create();
-        $article = [
-            'id' => 1,
-            'site_id' => $site->id,
-            'publish_date' => '2018-01-01 10:00:00',
-            'title' => 'hoge',
-            'description' => 'fuga',
-            'article_url' => 'http://hoge.jp',
-            'source_url' => 'http://fuga.jp',
-            'image_url' => 'http://age.jp',
-            'favicon_url' => 'http://sage.jp',
-        ];
-        $article = factory(Article::class)->create($article);
-        $this->user->articles()->save($article);
+        $this->user->articles()->save($this->article);
 
-        $response = $this->deleteJson('/v1/histories/' . $article->id);
+        $response = $this->deleteJson('/v1/histories/' . $this->article->id);
 
         $response->assertStatus(204);
         $this->assertDatabaseMissing('article_user', [
             'user_id' => $this->user->id,
-            'article_id' => $article->id,
+            'article_id' => $this->article->id,
         ]);
     }
 }
