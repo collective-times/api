@@ -16,3 +16,12 @@ use Illuminate\Http\Request;
 Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
+Route::prefix('v1')->namespace('Api\V1')->group(function() {
+    Route::get('articles', 'ArticleController@index');
+    Route::get('contents-parsers', 'ContentsParserController@index');
+    Route::post('android/devices', 'Android\DeviceController@store');
+
+    Route::middleware('auth:api')->group(function () {
+        Route::resource('sites', 'SiteController', ['only' => ['index', 'store', 'show', 'update', 'destroy']]);
+    });
+});

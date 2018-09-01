@@ -1,7 +1,7 @@
 <?php
 
 use Faker\Generator as Faker;
-use App\DataAccess\Eloquent\User;
+use App\DataAccess\Eloquent\Article;
 
 /*
 |--------------------------------------------------------------------------
@@ -14,11 +14,14 @@ use App\DataAccess\Eloquent\User;
 |
 */
 
-$factory->define(User::class, function (Faker $faker) {
+$factory->define(Article::class, function (Faker $faker) {
     return [
-        'name' => $faker->name,
-        'email' => $faker->unique()->safeEmail,
-        'password' => '$2y$10$TKh8H1.PfQx37YgCzwiKb.KjNyWgaHb9cbcoQgdIVFlYg7B77UdFm', // secret
-        'remember_token' => str_random(10),
+        'title' => $faker->text(30),
+        'description' => $faker->text(100),
+        'publish_date' => $faker->dateTime(),
+        'article_url' => $faker->url,
+        'source_url' => $faker->url,
+        'image_url' => $faker->imageUrl(),
+        'favicon_url' => $faker->imageUrl(),
     ];
 });
