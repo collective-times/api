@@ -6,6 +6,7 @@ use App\DataAccess\Eloquent\ArticleUser;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
+use App\Repositories\ArticleUserRepository;
 
 class HistoryController extends Controller
 {
@@ -14,23 +15,20 @@ class HistoryController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(ArticleUserRepository $repository)
     {
-        if (Auth::check()) {
-            $articles = Auth::user()->articles()->paginate(10);
-        } else {
-
-        }
+        $articles = $repository->fetchAll();
 
         return response()->json(['histories' => $articles->map(function ($article) {
             return [
                 'article' => [
                     'key' => $article->id,
                     'title' => $article->title,
-                    'description' => $article->short_description,
+                    // TODO: Entityクラスへの処理の移譲
+                    'description' => mb_substr(trim(strip_tags($article->description)), 0, 200),
                     'date' => $article->publish_date,
                     'articleUrl' => $article->article_url,
-                    'sourceTitle' => $article->site->title ?? null,
+                    'sourceTitle' => $article->site->title ?? $article->sourceTitle,
                     'sourceUrl' => $article->source_url,
                     'imageUrl' => $article->image_url,
                     'faviconUrl' => $article->favicon_url,

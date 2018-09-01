@@ -35,12 +35,11 @@ class HistoryTest extends TestCase
             'favicon_url' => 'http://sage.jp',
         ];
         $this->article = factory(Article::class)->create($this->articleParam);
-
-        Passport::actingAs($this->user);
     }
 
-    public function testIndex()
+    public function testIndex_WillResponseUsedStoredHistories()
     {
+        Passport::actingAs($this->user);
         $this->user->articles()->save($this->article);
 
         $response = $this->getJson('/v1/histories');
@@ -66,8 +65,36 @@ class HistoryTest extends TestCase
         ]]);
     }
 
+    public function testIndex_WillResponseGuestUsedStoredHistories()
+    {
+        $this->user->articles()->save($this->article);
+
+        $response = $this->getJson('/v1/histories');
+
+        $response->assertStatus(200);
+        $response->assertExactJson(['histories' => [
+            [
+                'article' => [
+                    'key' => $this->articleParam['id'],
+                    'date' => $this->articleParam['publish_date'],
+                    'title' => $this->articleParam['title'],
+                    'description' => $this->articleParam['description'],
+                    'articleUrl' => $this->articleParam['article_url'],
+                    'sourceTitle' => $this->site->title,
+                    'sourceUrl' => $this->articleParam['source_url'],
+                    'imageUrl' => $this->articleParam['image_url'],
+                    'faviconUrl' => $this->articleParam['favicon_url'],
+                ],
+                'user' => [
+                    'name' => 'だれか'
+                ]
+            ]
+        ]]);
+    }
+
     public function testStore()
     {
+        Passport::actingAs($this->user);
         $created = [
             'article_id' => $this->article->id,
         ];
@@ -83,6 +110,7 @@ class HistoryTest extends TestCase
 
     public function testDestroy()
     {
+        Passport::actingAs($this->user);
         $this->user->articles()->save($this->article);
 
         $response = $this->deleteJson('/v1/histories/' . $this->article->id);
