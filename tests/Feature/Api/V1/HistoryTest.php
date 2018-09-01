@@ -3,7 +3,6 @@
 namespace Tests\Feature\Api\V1;
 
 use App\DataAccess\Eloquent\Article;
-use App\DataAccess\Eloquent\ArticleUser;
 use App\DataAccess\Eloquent\Site;
 use Illuminate\Foundation\Testing\DatabaseTransactions;
 use Laravel\Passport\Passport;
