@@ -20,8 +20,10 @@ Route::prefix('v1')->namespace('Api\V1')->group(function() {
     Route::get('articles', 'ArticleController@index');
     Route::get('contents-parsers', 'ContentsParserController@index');
     Route::post('android/devices', 'Android\DeviceController@store');
+    Route::resource('histories', 'HistoryController', ['only' => ['index', 'store']]);
 
     Route::middleware('auth:api')->group(function () {
         Route::resource('sites', 'SiteController', ['only' => ['index', 'store', 'show', 'update', 'destroy']]);
+        Route::delete('histories/{articleId}', 'HistoryController@destroy');
     });
 });
