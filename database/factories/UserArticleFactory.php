@@ -1,7 +1,7 @@
 <?php
 
 use Faker\Generator as Faker;
-use App\DataAccess\Eloquent\UserArticle;
+use App\DataAccess\Eloquent\ArticleUser;
 
 /*
 |--------------------------------------------------------------------------
@@ -14,6 +14,6 @@ use App\DataAccess\Eloquent\UserArticle;
 |
 */
 
-$factory->define(UserArticle::class, function (Faker $faker) {
+$factory->define(ArticleUser::class, function (Faker $faker) {
     return [];
 });

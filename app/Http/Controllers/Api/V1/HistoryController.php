@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Api\V1;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Auth;
 
 class HistoryController extends Controller
 {
@@ -14,7 +15,30 @@ class HistoryController extends Controller
      */
     public function index()
     {
-        //
+        if (Auth::check()) {
+            $articles = Auth::user()->articles()->get();
+        } else {
+
+        }
+
+        return ['histories' => $articles->map(function ($article) {
+            return [
+                'article' => [
+                    'key' => $article->id,
+                    'title' => $article->title,
+                    'description' => $article->short_description,
+                    'date' => $article->publish_date,
+                    'articleUrl' => $article->article_url,
+                    'sourceTitle' => $article->site->title ?? null,
+                    'sourceUrl' => $article->source_url,
+                    'imageUrl' => $article->image_url,
+                    'faviconUrl' => $article->favicon_url,
+                ],
+                'user' => [
+                    'name' => Auth::user()->name ?? 'だれか'
+                ]
+            ];
+        })];
     }
 
     /**
