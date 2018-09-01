@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Api\V1;
 
+use App\DataAccess\Eloquent\ArticleUser;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
@@ -21,7 +22,7 @@ class HistoryController extends Controller
 
         }
 
-        return ['histories' => $articles->map(function ($article) {
+        return response()->json(['histories' => $articles->map(function ($article) {
             return [
                 'article' => [
                     'key' => $article->id,
@@ -38,7 +39,7 @@ class HistoryController extends Controller
                     'name' => Auth::user()->name ?? 'だれか'
                 ]
             ];
-        })];
+        })]);
     }
 
     /**
