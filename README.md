@@ -1,4 +1,4 @@
-# collective-times
+# collective times api [![CircleCI](https://circleci.com/gh/collective-times/api.svg?style=svg)](https://circleci.com/gh/collective-times/api)
 
 ## Docker開発環境
 
