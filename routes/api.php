@@ -24,6 +24,6 @@ Route::prefix('v1')->namespace('Api\V1')->group(function() {
 
     Route::middleware('auth:api')->group(function () {
         Route::resource('sites', 'SiteController', ['only' => ['index', 'store', 'show', 'update', 'destroy']]);
-        Route::delete('histories', 'HistoryController@destroy');
+        Route::delete('histories/{articleId}', 'HistoryController@destroy');
     });
 });

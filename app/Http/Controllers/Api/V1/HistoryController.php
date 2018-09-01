@@ -64,11 +64,13 @@ class HistoryController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int  $id
+     * @param  int  $articleId
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy($articleId)
     {
-        //
+        Auth::user()->articles()->detach($articleId);
+
+        return response()->json(null, 204);
     }
 }
