@@ -17,7 +17,7 @@ class HistoryController extends Controller
     public function index()
     {
         if (Auth::check()) {
-            $articles = Auth::user()->articles()->get();
+            $articles = Auth::user()->articles()->paginate(10);
         } else {
 
         }
