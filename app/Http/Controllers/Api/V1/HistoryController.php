@@ -50,7 +50,15 @@ class HistoryController extends Controller
      */
     public function store(Request $request)
     {
-        //
+         if (Auth::check()) {
+            Auth::user()->articles()->attach($request->article_id);
+        } else {
+            // TODO
+        }
+
+        return response()->json([
+            'article_id' => $request->article_id,
+        ], 201);
     }
 
     /**

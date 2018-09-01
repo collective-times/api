@@ -63,4 +63,33 @@ class HistoryTest extends TestCase
             ]
         ]]);
     }
+
+    public function testStore()
+    {
+        $site = factory(Site::class)->create();
+        $article = [
+            'id' => 1,
+            'site_id' => $site->id,
+            'publish_date' => '2018-01-01 10:00:00',
+            'title' => 'hoge',
+            'description' => 'fuga',
+            'article_url' => 'http://hoge.jp',
+            'source_url' => 'http://fuga.jp',
+            'image_url' => 'http://age.jp',
+            'favicon_url' => 'http://sage.jp',
+        ];
+        $article = factory(Article::class)->create($article);
+
+        $created = [
+            'article_id' => $article->id,
+        ];
+        $response = $this->postJson('/v1/histories', $created);
+
+        $response->assertStatus(201);
+        $response->assertExactJson($created);
+        $this->assertDatabaseHas('article_user', [
+            'user_id' => $this->user->id,
+            'article_id' => $article->id,
+        ]);
+    }
 }
