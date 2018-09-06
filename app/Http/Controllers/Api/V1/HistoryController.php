@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 use App\Repositories\ArticleUserRepository;
+use Firebase\JWT\JWT;
 
 class HistoryController extends Controller
 {
@@ -48,13 +49,16 @@ class HistoryController extends Controller
      */
     public function store(Request $request)
     {
-         if (Auth::check()) {
-            Auth::user()->articles()->attach($request->article_id);
-        } else {
-             ArticleUser::create([
-                 'article_id' => $request->article_id
-             ]);
+        $authorization = $request->header('Authorization');
+        if ($authorization) {
+            $jwt = substr($authorization, 7);
+            $payload = JWT::decode($jwt, config('passport.public_keyt'), ['RS256']);
         }
+
+        ArticleUser::create([
+            'user_id' => $payload->sub ?? null,
+            'article_id' => $request->article_id
+        ]);
 
         return response()->json([
             'article_id' => $request->article_id,
