@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 use App\Repositories\ArticleUserRepository;
+use Firebase\JWT\JWT;
 
 class HistoryController extends Controller
 {
@@ -48,13 +49,19 @@ class HistoryController extends Controller
      */
     public function store(Request $request)
     {
-         if (Auth::check()) {
-            Auth::user()->articles()->attach($request->article_id);
-        } else {
-             ArticleUser::create([
-                 'article_id' => $request->article_id
-             ]);
+        $authorization = $request->header('Authorization');
+        if ($authorization) {
+            $jwt = substr($authorization, 7);
+            // phodotenv で複数行の公開鍵を「\\n」の改行コードで管理している都合で、通常の公開鍵として利用できるように普通の改行コードに戻す
+            // refs: https://qiita.com/hypermkt/items/6ad0c9535dd1b22ca3be
+            $newLinedPublicKey = str_replace('\\n', "\n", config('passport.public_key'));
+            $payload = JWT::decode($jwt, $newLinedPublicKey, ['RS256']);
         }
+
+        ArticleUser::create([
+            'user_id' => $payload->sub ?? null,
+            'article_id' => $request->article_id
+        ]);
 
         return response()->json([
             'article_id' => $request->article_id,
