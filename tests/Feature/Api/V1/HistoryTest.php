@@ -92,7 +92,7 @@ class HistoryTest extends TestCase
         ]]);
     }
 
-// テストケースを実装するのが困難なので一旦保留にする
+// TODO: テストケースを実装するのが困難なので一旦保留にする
 //    public function testStore_WhenLoggedInUser()
 //    {
 //        Passport::actingAs($this->user);
