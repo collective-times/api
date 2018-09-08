@@ -52,7 +52,10 @@ class HistoryController extends Controller
         $authorization = $request->header('Authorization');
         if ($authorization) {
             $jwt = substr($authorization, 7);
-            $payload = JWT::decode($jwt, config('passport.public_key'), ['RS256']);
+            // phodotenv で複数行の公開鍵を「\\n」の改行コードで管理している都合で、通常の公開鍵として利用できるように普通の改行コードに戻す
+            // refs: https://qiita.com/hypermkt/items/6ad0c9535dd1b22ca3be
+            $newLinedPublicKey = str_replace('\\n', "\n", config('passport.public_key'));
+            $payload = JWT::decode($jwt, $newLinedPublicKey, ['RS256']);
         }
 
         ArticleUser::create([
