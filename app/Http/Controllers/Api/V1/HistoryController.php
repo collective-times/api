@@ -52,7 +52,7 @@ class HistoryController extends Controller
         $authorization = $request->header('Authorization');
         if ($authorization) {
             $jwt = substr($authorization, 7);
-            $payload = JWT::decode($jwt, config('passport.public_keyt'), ['RS256']);
+            $payload = JWT::decode($jwt, config('passport.public_key'), ['RS256']);
         }
 
         ArticleUser::create([
