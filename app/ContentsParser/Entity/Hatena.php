@@ -8,7 +8,11 @@ class Hatena extends RSS2 implements EntityInterface
 {
     public function getImageUrl()
     {
-        return $this->createCrawler($this->item->get_content())->filter('body img')->eq(1)->attr('src');
+        $imageUrl = $this->createCrawler($this->item->get_content())->filter('body img')->eq(1)->attr('src');
+        $parsedUrl = parse_url($imageUrl);
+        if ($this->isImageUrl($parsedUrl['path'])) {
+            return $imageUrl;
+        }
     }
 
     public function getFaviconUrl()

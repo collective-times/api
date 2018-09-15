@@ -38,7 +38,11 @@ class RSS2 implements EntityInterface
     public function getImageUrl()
     {
         try {
-            return $this->createCrawler($this->item->get_content())->filter('body img')->eq(0)->attr('src');
+            $imageUrl = $this->createCrawler($this->item->get_content())->filter('body img')->eq(0)->attr('src');
+            $parsedUrl = parse_url($imageUrl);
+            if ($this->isImageUrl($parsedUrl['path'])) {
+                return $imageUrl;
+            }
         } catch (InvalidArgumentException $e) {
         }
     }
@@ -46,6 +50,11 @@ class RSS2 implements EntityInterface
     public function getFaviconUrl()
     {
         return '';
+    }
+
+    protected function isImageUrl(string $url): bool
+    {
+        return preg_match('/\.(jpe?g|png|gif|tiff)$/', $url);
     }
 
     protected function createCrawler($content)
