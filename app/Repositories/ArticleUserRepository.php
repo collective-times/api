@@ -13,6 +13,6 @@ class ArticleUserRepository
             ->join('sites', 'articles.site_id', '=', 'sites.id')
             ->select('articles.*', 'sites.title as sourceTitle')
             ->orderBy('article_user.created_at', 'desc')
-            ->paginate(10);
+            ->paginate(30);
     }
 }
