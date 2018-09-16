@@ -20,7 +20,7 @@ class ArticleController extends Controller
         } else {
             // MEMO: pageクエリパラメーターは、Laravelが自動判別する
             // refs: https://readouble.com/laravel/5.6/ja/pagination.html
-            $articles = Article::orderBy('publish_date', 'desc')->paginate(10);
+            $articles = Article::orderBy('publish_date', 'desc')->paginate(30);
 
             Cache::put($key, $articles, now()->addMinutes(10));
         }

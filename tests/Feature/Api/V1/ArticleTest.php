@@ -45,22 +45,22 @@ class ArticleTest extends TestCase
         ]]);
     }
 
-    public function testIndex_WillResponse10Items_WhenPage1()
+    public function testIndex_WillResponse30Items_WhenPage1()
     {
-        factory(Article::class, 15)->create();
+        factory(Article::class, 60)->create();
 
         $response = $this->getJson('/v1/articles?page=1');
 
         $response->assertStatus(200);
-        $response->assertJsonCount(10, 'articles');
+        $response->assertJsonCount(30, 'articles');
     }
 
-    public function testIndex_WillResponse5Items_WhenPage2()
+    public function testIndex_WillResponse30Items_WhenPage2()
     {
-        factory(Article::class, 15)->create();
+        factory(Article::class, 70)->create();
 
         $response = $this->getJson('/v1/articles?page=2');
         $response->assertStatus(200);
-        $response->assertJsonCount(5, 'articles');
+        $response->assertJsonCount(30, 'articles');
     }
 }
