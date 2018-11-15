@@ -11,7 +11,8 @@ class Slack extends Notification
 {
     use Queueable;
 
-    private $content;
+    private $title;
+    private $url;
     private $name;
     private $icon;
     private $channel;
@@ -21,9 +22,10 @@ class Slack extends Notification
      *
      * @return void
      */
-    public function __construct($content)
+    public function __construct($title, $url)
     {
-        $this->content = $content;
+        $this->title = $title;
+        $this->url = $url;
         $this->name = config('notification.slack.name');
         $this->icon = config('notification.slack.icon');
         $this->channel = config('notification.slack.channel');
@@ -42,10 +44,13 @@ class Slack extends Notification
 
     public function toSlack($notifiable)
     {
+        $url = $this->url;
         return (new SlackMessage)
             ->from($this->name, $this->icon)
             ->to($this->channel)
-            ->content($this->content);
+            ->attachment(function ($attachment) use ($url) {
+                $attachment->title($this->title, $url);
+            });
     }
 
     /**
