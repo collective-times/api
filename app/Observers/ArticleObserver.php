@@ -17,7 +17,6 @@ class ArticleObserver
     public function created(Article $article)
     {
         (new SlackNotifiable())->notify(new Slack(
-            $article->title,
             $article->article_url
         ));
     }
