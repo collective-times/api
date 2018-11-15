@@ -41,8 +41,6 @@ class Slack extends Notification
 
     public function toSlack($notifiable)
     {
-        sleep(1);
-
         return (new SlackMessage)
             ->from($this->name, $this->icon)
             ->to($this->channel)

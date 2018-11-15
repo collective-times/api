@@ -16,6 +16,8 @@ class ArticleObserver
      */
     public function created(Article $article)
     {
+        sleep(1); // URL展開を待つため
+
         (new SlackNotifiable())->notify(new Slack(
             $article->article_url
         ));
