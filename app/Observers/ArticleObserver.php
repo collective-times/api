@@ -16,10 +16,12 @@ class ArticleObserver
      */
     public function created(Article $article)
     {
-        sleep(10); // URL展開を待つため
+        if (config('APP_ENV') == 'production') {
+            sleep(10); // URL展開を待つため
 
-        (new SlackNotifiable())->notify(new Slack(
-            $article->article_url
-        ));
+            (new SlackNotifiable())->notify(new Slack(
+                $article->article_url
+            ));
+        }
     }
 }
