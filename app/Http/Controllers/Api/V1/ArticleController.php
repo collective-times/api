@@ -12,18 +12,9 @@ class ArticleController extends Controller
 {
     public function index(Request $request)
     {
-        $page = $request->page ?? 1;
-        $key = 'articles_page_' . $page;
-
-        if (Cache::has($key)) {
-            $articles = Cache::get($key);
-        } else {
-            // MEMO: pageクエリパラメーターは、Laravelが自動判別する
-            // refs: https://readouble.com/laravel/5.6/ja/pagination.html
-            $articles = Article::orderBy('publish_date', 'desc')->paginate(30);
-
-            Cache::put($key, $articles, now()->addMinutes(10));
-        }
+        // MEMO: pageクエリパラメーターは、Laravelが自動判別する
+        // refs: https://readouble.com/laravel/5.6/ja/pagination.html
+        $articles = Article::orderBy('publish_date', 'desc')->paginate(30);
 
         return response()->json(['articles' => $articles->map(function($article) {
             return [
