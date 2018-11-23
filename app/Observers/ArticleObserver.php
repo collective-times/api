@@ -16,7 +16,7 @@ class ArticleObserver
      */
     public function created(Article $article)
     {
-        if (config('APP_ENV') == 'production') {
+        if (config('app.env') == 'production') {
             sleep(10); // URL展開を待つため
 
             (new SlackNotifiable())->notify(new Slack(
