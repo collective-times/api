@@ -28,7 +28,7 @@ jobs:
       - checkout
 
       # Install PHP Extension
-      - run: sudo docker-php-ext-install pdo_mysql
+      - run: sudo -E docker-php-ext-install pdo_mysql
 
       # Download and cache dependencies
       - restore_cache:
