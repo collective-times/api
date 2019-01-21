@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "b73e08a770df51c710193cc880108be8",
+    "content-hash": "da16651867e96415e915836411aa227d",
     "packages": [
         {
             "name": "asm89/stack-cors",
@@ -3716,7 +3716,7 @@
                 },
                 {
                     "name": "Gert de Pagter",
-                    "email": "BackEndTea@gmail.com"
+                    "email": "backendtea@gmail.com"
                 }
             ],
             "description": "Symfony polyfill for ctype functions",
@@ -4557,16 +4557,16 @@
         },
         {
             "name": "heroku/heroku-buildpack-php",
-            "version": "v139",
+            "version": "v149",
             "source": {
                 "type": "git",
                 "url": "https://github.com/heroku/heroku-buildpack-php.git",
-                "reference": "565e494409c890054e10d0fb46c00ee032137a7d"
+                "reference": "ec9ffb83d2101bf4b42e09416a35c48b5dd2557e"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/heroku/heroku-buildpack-php/zipball/565e494409c890054e10d0fb46c00ee032137a7d",
-                "reference": "565e494409c890054e10d0fb46c00ee032137a7d",
+                "url": "https://api.github.com/repos/heroku/heroku-buildpack-php/zipball/ec9ffb83d2101bf4b42e09416a35c48b5dd2557e",
+                "reference": "ec9ffb83d2101bf4b42e09416a35c48b5dd2557e",
                 "shasum": ""
             },
             "bin": [
@@ -4597,7 +4597,7 @@
                 "nginx",
                 "php"
             ],
-            "time": "2018-07-20T16:31:01+00:00"
+            "time": "2019-01-14T17:29:14+00:00"
         },
         {
             "name": "mockery/mockery",
