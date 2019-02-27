@@ -14,3 +14,9 @@ $ docker-compose exec api php artisan migrate
 ```
 
 `http://localhost` が閲覧できるようになります。
+
+### Run PHPUnit
+
+```sh
+$ docker-compose exec api php artisan migrate
+```
