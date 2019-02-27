@@ -20,7 +20,7 @@ class SiteTest extends TestCase
         'type' => 'rss',
     ];
 
-    public function setUp()
+    public function setUp(): void
     {
         parent::setUp();
 
