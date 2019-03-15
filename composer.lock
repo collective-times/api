@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "ab7503661aca7f09d0c4d945ce083350",
+    "content-hash": "9242d4bf6e9ac16e21d34c3e8e637ca1",
     "packages": [
         {
             "name": "asm89/stack-cors",
@@ -5148,16 +5148,16 @@
         },
         {
             "name": "heroku/heroku-buildpack-php",
-            "version": "v151",
+            "version": "v152",
             "source": {
                 "type": "git",
                 "url": "https://github.com/heroku/heroku-buildpack-php.git",
-                "reference": "19842f10bd7ccd714aecfbe03913451bfa66279f"
+                "reference": "6957c99ad679c07c520ae64669e39a9dd751d523"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/heroku/heroku-buildpack-php/zipball/19842f10bd7ccd714aecfbe03913451bfa66279f",
-                "reference": "19842f10bd7ccd714aecfbe03913451bfa66279f",
+                "url": "https://api.github.com/repos/heroku/heroku-buildpack-php/zipball/6957c99ad679c07c520ae64669e39a9dd751d523",
+                "reference": "6957c99ad679c07c520ae64669e39a9dd751d523",
                 "shasum": ""
             },
             "bin": [
@@ -5188,7 +5188,7 @@
                 "nginx",
                 "php"
             ],
-            "time": "2019-03-08T17:22:51+00:00"
+            "time": "2019-03-13T20:58:00+00:00"
         },
         {
             "name": "laravel/nexmo-notification-channel",
