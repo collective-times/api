@@ -5,7 +5,6 @@ namespace App\Http\Controllers\Api\V1;
 use App\Http\Controllers\Controller;
 use App\DataAccess\Eloquent\Article;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Cache;
 
 
 class ArticleController extends Controller
