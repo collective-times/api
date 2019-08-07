@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "e38fc8b5c02cad7918ee9def13b6c973",
+    "content-hash": "cc7fae318a2f8ace789136afd94f0232",
     "packages": [
         {
             "name": "asm89/stack-cors",
@@ -5154,8 +5154,8 @@
             "authors": [
                 {
                     "name": "Tijs Verkoyen",
-                    "email": "css_to_inline_styles@verkoyen.eu",
-                    "role": "Developer"
+                    "role": "Developer",
+                    "email": "css_to_inline_styles@verkoyen.eu"
                 }
             ],
             "description": "CssToInlineStyles is a class that enables you to convert HTML-pages/files into HTML-pages/files with inline styles. This is very useful when you're sending emails.",
@@ -5381,8 +5381,8 @@
             "authors": [
                 {
                     "name": "Filipe Dobreira",
-                    "homepage": "https://github.com/filp",
-                    "role": "Developer"
+                    "role": "Developer",
+                    "homepage": "https://github.com/filp"
                 }
             ],
             "description": "php error handling for cool kids",
@@ -5497,16 +5497,16 @@
         },
         {
             "name": "heroku/heroku-buildpack-php",
-            "version": "v158",
+            "version": "v159",
             "source": {
                 "type": "git",
                 "url": "https://github.com/heroku/heroku-buildpack-php.git",
-                "reference": "26be51dee125027ac81bac756c3f27279623912d"
+                "reference": "3aa8f9a0fb1e7266ea6925ecee910cade921247e"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/heroku/heroku-buildpack-php/zipball/26be51dee125027ac81bac756c3f27279623912d",
-                "reference": "26be51dee125027ac81bac756c3f27279623912d",
+                "url": "https://api.github.com/repos/heroku/heroku-buildpack-php/zipball/3aa8f9a0fb1e7266ea6925ecee910cade921247e",
+                "reference": "3aa8f9a0fb1e7266ea6925ecee910cade921247e",
                 "shasum": ""
             },
             "bin": [
@@ -5537,7 +5537,7 @@
                 "nginx",
                 "php"
             ],
-            "time": "2019-07-04T10:43:37+00:00"
+            "time": "2019-08-06T23:38:48+00:00"
         },
         {
             "name": "laravel/nexmo-notification-channel",
@@ -6299,8 +6299,8 @@
             "authors": [
                 {
                     "name": "Sebastian Bergmann",
-                    "email": "sebastian@phpunit.de",
-                    "role": "lead"
+                    "role": "lead",
+                    "email": "sebastian@phpunit.de"
                 }
             ],
             "description": "FilterIterator implementation that filters files based on a list of suffixes.",
@@ -6341,8 +6341,8 @@
             "authors": [
                 {
                     "name": "Sebastian Bergmann",
-                    "email": "sebastian@phpunit.de",
-                    "role": "lead"
+                    "role": "lead",
+                    "email": "sebastian@phpunit.de"
                 }
             ],
             "description": "Simple template engine.",
@@ -6390,8 +6390,8 @@
             "authors": [
                 {
                     "name": "Sebastian Bergmann",
-                    "email": "sebastian@phpunit.de",
-                    "role": "lead"
+                    "role": "lead",
+                    "email": "sebastian@phpunit.de"
                 }
             ],
             "description": "Utility class for timing",
@@ -7097,8 +7097,8 @@
             "authors": [
                 {
                     "name": "Sebastian Bergmann",
-                    "email": "sebastian@phpunit.de",
-                    "role": "lead"
+                    "role": "lead",
+                    "email": "sebastian@phpunit.de"
                 }
             ],
             "description": "Collection of value objects that represent the types of the PHP type system",
@@ -7140,8 +7140,8 @@
             "authors": [
                 {
                     "name": "Sebastian Bergmann",
-                    "email": "sebastian@phpunit.de",
-                    "role": "lead"
+                    "role": "lead",
+                    "email": "sebastian@phpunit.de"
                 }
             ],
             "description": "Library that helps with managing the version number of Git-hosted PHP projects",
