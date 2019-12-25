@@ -34,6 +34,7 @@ class OAuthTokenTest extends TestCase
             'username' => $this->user->email,
             'password' => 'secret',
         ];
+        // MEMO: アクセストークンを発行する際にoauth-(public|private).keyを使用するので、CircleCIでテストをする際は、環境変数にPASSPORT_PUBLIC_KEY、PASSPORT_PRIVATE_KEYを設定すること
         $response = $this->postJson('/oauth/token', $params);
         $response->assertStatus(200)
             ->assertJsonStructure([
