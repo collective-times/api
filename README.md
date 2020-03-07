@@ -18,5 +18,5 @@ $ docker-compose exec api php artisan migrate
 ### Run PHPUnit
 
 ```sh
-$ docker-compose exec api php artisan migrate
+$ docker-compose exec api vendor/bin/phpunit
 ```
