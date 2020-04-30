@@ -38,7 +38,11 @@ class RSS2 implements EntityInterface
     public function getImageUrl()
     {
         try {
-            $imageUrl = $this->createCrawler($this->item->get_content())->filter('body img')->eq(0)->attr('src');
+            $content = $this->item->get_content();
+            if (is_null($content)) {
+                return;
+            }
+            $imageUrl = $this->createCrawler($content)->filter('body img')->eq(0)->attr('src');
             $parsedUrl = parse_url($imageUrl);
             if ($this->isImageUrl($parsedUrl['path'])) {
                 return $imageUrl;
