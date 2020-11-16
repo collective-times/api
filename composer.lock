@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "04a3ccce5c11931501c7eef01ba6934a",
+    "content-hash": "23b4177523ea02467f9a9f9abd03475e",
     "packages": [
         {
             "name": "asm89/stack-cors",
@@ -6834,16 +6834,16 @@
         },
         {
             "name": "heroku/heroku-buildpack-php",
-            "version": "v179",
+            "version": "v183",
             "source": {
                 "type": "git",
                 "url": "https://github.com/heroku/heroku-buildpack-php.git",
-                "reference": "caa1d9171f3b3a88b31e81dc303066a77b9871c6"
+                "reference": "1224f62dfb47031899630a14806a56cfc70a6db8"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/heroku/heroku-buildpack-php/zipball/caa1d9171f3b3a88b31e81dc303066a77b9871c6",
-                "reference": "caa1d9171f3b3a88b31e81dc303066a77b9871c6",
+                "url": "https://api.github.com/repos/heroku/heroku-buildpack-php/zipball/1224f62dfb47031899630a14806a56cfc70a6db8",
+                "reference": "1224f62dfb47031899630a14806a56cfc70a6db8",
                 "shasum": ""
             },
             "bin": [
@@ -6874,7 +6874,7 @@
                 "nginx",
                 "php"
             ],
-            "time": "2020-08-13T22:57:50+00:00"
+            "time": "2020-11-13T08:54:59+00:00"
         },
         {
             "name": "jakub-onderka/php-console-color",
