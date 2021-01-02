@@ -59,7 +59,7 @@ class Crawl extends Command
                 Article::create([
                     'site_id' => $site->id,
                     'title' => $entity->getTitle(),
-                    'description' => $entity->getDescription(),
+                    'description' => mb_substr($entity->getDescription(), 0, 1000),
                     'publish_date' => $entity->getPublishDate(),
                     'article_url' => $entity->getArticleUrl(),
                     'source_url' => $site->source_url,
