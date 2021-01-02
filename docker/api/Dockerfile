@@ -1,4 +1,4 @@
-FROM php:7.3-fpm
+FROM php:7.4-fpm
 
 RUN apt-get -qq update \
       && apt-get -qq install -y --no-install-recommends unzip zlib1g-dev git
