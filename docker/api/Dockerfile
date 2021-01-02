@@ -8,10 +8,6 @@ RUN pecl install redis-4.0.1 \
 
 RUN docker-php-ext-install mbstring pdo_mysql
 
-RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/bin --filename=composer
-RUN composer -q config -g repositories.packagist composer https://packagist.jp
-RUN composer -q global require hirak/prestissimo
-
 WORKDIR /var/www/collective-times/api
 
 EXPOSE 9000
