@@ -30,3 +30,7 @@ $ docker-compose exec api vendor/bin/phpunit
 # パスワードグラントクライアントの作成
 $ docker-compose exec api php artisan passport:client --password
 ```
+
+## 困ったときは
+
+1. `storage/logs/laravel.log` でアプリケーションログを確認すること

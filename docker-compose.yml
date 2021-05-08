@@ -17,15 +17,17 @@ services:
     depends_on:
       - database
   database:
-    image: mysql:5.7
+    image: postgres:12
     volumes:
-      - ./docker/database/my.cnf:/etc/mysql/conf.d/my.cnf:ro
+      - ./docker/db/data:/var/lib/postgresql/data
+      - ./docker/db/sql:/docker-entrypoint-initdb.d
+    ports:
+      - 5432:5432
     environment:
-      TZ: Asia/Tokyo
-      MYSQL_DATABASE: collective_times_development
-      MYSQL_USER: collective_times
-      MYSQL_PASSWORD: collective_times_development
-      MYSQL_ALLOW_EMPTY_PASSWORD: 'yes'
+      TZ: 'Asia/Tokyo'
+      POSTGRES_USER: 'collective_times_development'
+      POSTGRES_PASSWORD: 'collective_times_development'
+      POSTGRES_DB: 'collective_times_development'
   cache:
     image: redis:4
 
