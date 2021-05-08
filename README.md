@@ -11,6 +11,9 @@ $ docker-compose up -d
 
 # マイグレーションを実行
 $ docker-compose exec api php artisan migrate
+
+# ローカルサーバーを起動
+$ docker-compose exec api php artisan serve
 ```
 
 `http://localhost` が閲覧できるようになります。
@@ -19,6 +22,13 @@ $ docker-compose exec api php artisan migrate
 
 ```sh
 $ docker-compose exec api vendor/bin/phpunit
+```
+
+## セットアップ
+
+```
+# パスワードグラントクライアントの作成
+$ docker-compose exec api php artisan passport:client --password
 ```
 
 ## 困ったときは
