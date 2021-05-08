@@ -26,7 +26,7 @@ services:
     environment:
       TZ: 'Asia/Tokyo'
       POSTGRES_USER: 'collective_times_development'
-      POSTGRES_PASSWORD: 'collective_times'
+      POSTGRES_PASSWORD: 'collective_times_development'
       POSTGRES_DB: 'collective_times_development'
   cache:
     image: redis:4
