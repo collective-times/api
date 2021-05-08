@@ -7,7 +7,7 @@ RUN apt-get -qq update \
 RUN pecl install redis-4.0.1 \
     && docker-php-ext-enable redis
 
-RUN docker-php-ext-install mbstring pdo pdo_pgsql
+RUN docker-php-ext-install mbstring pdo pdo_pgsql pgsql
 RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/bin --filename=composer
 WORKDIR /var/www/collective-times/api
 
