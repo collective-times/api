@@ -3,6 +3,7 @@
 namespace App\Console\Commands;
 
 use App\ContentsParser\Request;
+use Carbon\Carbon;
 use Illuminate\Console\Command;
 use App\DataAccess\Eloquent\Article;
 use App\DataAccess\Eloquent\Site;
@@ -53,6 +54,12 @@ class Crawl extends Command
                 // 記事URLが登録済みの場合はスキップする
                 $article = Article::where('article_url', $entity->getArticleUrl())->first();
                 if ($article) {
+                    continue;
+                }
+
+                // 記事の公開日時が一ヶ月以前の場合は登録しない
+                $target = new Carbon($entity->getPublishDate());
+                if (Carbon::now()->subMonth()->gt($target)) {
                     continue;
                 }
 
