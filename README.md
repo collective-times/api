@@ -20,3 +20,7 @@ $ docker-compose exec api php artisan migrate
 ```sh
 $ docker-compose exec api vendor/bin/phpunit
 ```
+
+## 困ったときは
+
+1. `storage/logs/laravel.log` でアプリケーションログを確認すること
