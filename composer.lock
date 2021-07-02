@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "87e263b016d1a36b86cdf6fc5df7b311",
+    "content-hash": "9322aeb032c416ef5c0df575fffecb70",
     "packages": [
         {
             "name": "asm89/stack-cors",
@@ -7955,16 +7955,16 @@
         },
         {
             "name": "heroku/heroku-buildpack-php",
-            "version": "v189",
+            "version": "v195",
             "source": {
                 "type": "git",
                 "url": "https://github.com/heroku/heroku-buildpack-php.git",
-                "reference": "967a2b977b849d8d11112e40401c04927bda3f64"
+                "reference": "88cf8f624299856ac2ef3c096eaf93a4eb4c94a4"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/heroku/heroku-buildpack-php/zipball/967a2b977b849d8d11112e40401c04927bda3f64",
-                "reference": "967a2b977b849d8d11112e40401c04927bda3f64",
+                "url": "https://api.github.com/repos/heroku/heroku-buildpack-php/zipball/88cf8f624299856ac2ef3c096eaf93a4eb4c94a4",
+                "reference": "88cf8f624299856ac2ef3c096eaf93a4eb4c94a4",
                 "shasum": ""
             },
             "bin": [
@@ -7994,9 +7994,9 @@
             ],
             "support": {
                 "issues": "https://github.com/heroku/heroku-buildpack-php/issues",
-                "source": "https://github.com/heroku/heroku-buildpack-php/tree/v189"
+                "source": "https://github.com/heroku/heroku-buildpack-php/tree/v195"
             },
-            "time": "2021-02-05T19:38:34+00:00"
+            "time": "2021-07-01T13:10:07+00:00"
         },
         {
             "name": "mockery/mockery",
